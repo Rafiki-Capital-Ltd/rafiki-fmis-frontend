@@ -39,11 +39,12 @@ function login() {
                       Password
                     </label>
                     <Link className="text-blue-500 underline text-sm   ">
-                     Forgot Password ?
+                      Forgot Password ?
                     </Link>
                   </div>
                   <input
                     type="password"
+                    placeholder="Password"
                     className="shadow-sm bg-gray-50 border border-gray-300 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 tw dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required
                   />
