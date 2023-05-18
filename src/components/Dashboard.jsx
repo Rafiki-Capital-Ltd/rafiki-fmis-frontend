@@ -47,7 +47,7 @@ function Dashboard() {
           <div
             className={` ${
               open ? " hidden sm:inline" : " inline "
-            } text-md text-md text-gray-400 font-[13px] px-2 `}
+            } text-md  text-gray-400 font-[13px] px-2 `}
           >
             {" "}
             test@test.com
@@ -157,10 +157,10 @@ function Dashboard() {
             } `}
           >
             <div className={`${open ? "" : "mx-10"} grid grid-cols-5 flex-1 `}>
-              <div className="col-span-3 sm:col-span-3 mr-3  bg-white shadow-md p-2 rounded-md">
+              <div className="col-span-5 md:col-span-3 xs:h-32  bg-white shadow-md p-2 rounded-md">
                 <BarChart data={scanData} />
               </div>
-              <div className="col-span-3  sm:col-span-2 ml-3 bg-white shadow-md p-2 rounded-md">
+              <div className="col-span-5  md:col-span-2 xs:h-32 ml-3 bg-white shadow-md p-2 rounded-md">
                 {/* <BarChart data={scanData} /> */}
               </div>
             </div>

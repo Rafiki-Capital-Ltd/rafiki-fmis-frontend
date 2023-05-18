@@ -1,6 +1,7 @@
 import React from "react";
-import { Routes, Route, Link, useLocation, Outlet } from "react-router-dom";
+import { Routes, Route, Link, useLocation, Outlet , NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+
 
 function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -38,12 +39,10 @@ function Sidebar() {
             <i data-feather="chevron-left"> </i>
           </span>
 
-          <div className="flex gap-x-4 items-center justify-center">
-
-          </div>
+          <div className="flex gap-x-4 items-center justify-center"></div>
           <ul className="pt-6">
-            {Menus.map((Menu, index) => (
-              <Link
+            { Menus.map((Menu, index) => (
+              <NavLink
                 to={
                   Menu.title === "Dashboard"
                     ? "/dashboard"
@@ -52,7 +51,7 @@ function Sidebar() {
               >
                 <li
                   key={index}
-                  className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-100 text-sm items-center gap-x-4 
+                  className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-100 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${
                     location.pathname ===
                       "/dashboard/" + Menu.title.toLocaleLowerCase() &&
@@ -67,7 +66,7 @@ function Sidebar() {
                     {Menu.title}
                   </span>
                 </li>{" "}
-              </Link>
+              </NavLink>
             ))}
           </ul>
         </aside>

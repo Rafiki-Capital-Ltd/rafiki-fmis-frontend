@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function login() {
+function Login() {
   return (
     <div className="bg-gray-100">
       <div className="grid grid-cols-1  md:grid-cols-3 items-center justify-center h-screen bg-gray-100">
@@ -68,4 +68,4 @@ function login() {
   );
 }
 
-export default login;
+export default Login;

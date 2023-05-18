@@ -15,7 +15,7 @@ export default function BarChart({ data }) {
 
     const options = {
       maintainAspectRatio: false,
-      aspectRatio: 0.8,
+        aspectRatio: 0.8,
       plugins: {
         legend: {
           labels: {
