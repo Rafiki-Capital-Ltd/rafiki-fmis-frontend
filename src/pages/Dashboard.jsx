@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TableComponent from "../components/TableComponent";
 
-import { BarChart, DashboardCard } from "../components";
+
+import { BarChart, DashboardCard , PieChart } from "../components";
 
 export function Dashboard() {
   const [open, setOpen] = useState(false);
@@ -51,7 +52,7 @@ export function Dashboard() {
               <BarChart data={scanData} />
             </div>
             <div className="col-span-5  md:col-span-2 xs:h-32 ml-3 bg-white shadow-md p-2 rounded-md">
-              {/* <BarChart data={scanData} /> */}
+    			 <PieChart/>
             </div>
           </div>
         </div>
