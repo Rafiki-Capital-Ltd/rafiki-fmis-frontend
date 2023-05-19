@@ -7,8 +7,10 @@ import VerifyEmail from './auth/VerifyEmail'
 import Dashboard from './components/dashboard'
 import Sidebar from './components/Sidebar'
 import PrimeChart from './components/BarChart'
+import Crops from './components/Crops'
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";                                       
+import TableComponent from './components/TableComponent'
         
 
 function App() {
@@ -23,7 +25,7 @@ function App() {
         <Route path="/dashboard" element={<Sidebar />}>
           <Route index element={<Dashboard />} />
           <Route path="/dashboard/chart" element={<PrimeChart />} />
-          <Route path="/dashboard/*" element={<VerifyEmail />} />
+          <Route path="/dashboard/*" element={<TableComponent/>} />
         </Route>
       </Routes>
     </>

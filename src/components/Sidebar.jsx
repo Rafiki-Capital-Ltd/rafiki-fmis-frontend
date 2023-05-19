@@ -26,7 +26,7 @@ function Sidebar() {
   return (
     <>
       {" "}
-      <div className="flex w-full ">
+      <div className="flex w-screen ">
         <aside
           className={` ${
             open ? " w-3/4 sm:w-72" : "w-20 "
@@ -42,7 +42,7 @@ function Sidebar() {
 
           <div className="flex gap-x-4 items-center justify-center"></div>
           <ul className="pt-6">
-            { Menus.map((Menu, index) => (
+            {Menus.map((Menu, index) => (
               <NavLink
                 to={
                   Menu.title === "Dashboard"
@@ -71,7 +71,13 @@ function Sidebar() {
             ))}
           </ul>
         </aside>
-        <Outlet />
+        <main
+          className={` ${
+            open ? " hidden md:w-[calc(100%-144px)] " : "w-[calc(100%-80px)] "
+          } `}
+        >
+          <Outlet />
+        </main>
       </div>
     </>
   );

@@ -75,7 +75,7 @@ function Dashboard() {
                 <div className="flex flex-col justify-start p-2 ">
                   {" "}
                   <span className="text-3xl mb-1">7 </span>{" "}
-                  <span className="text-md text-gray-400"> visits today</span>{" "}
+                  <span className="text-md text-gray-400"> Assets </span>{" "}
                 </div>
               </div>
             </div>
@@ -99,7 +99,7 @@ function Dashboard() {
                   <span className="text-3xl mb-1">575 </span>{" "}
                   <span className="text-md text-gray-400">
                     {" "}
-                    visits this week
+                   Production
                   </span>{" "}
                 </div>
               </div>
@@ -121,7 +121,7 @@ function Dashboard() {
                   <span className="text-3xl mb-1">1 </span>{" "}
                   <span className="text-md text-gray-400">
                     {" "}
-                    visits this week
+                    Consumption
                   </span>{" "}
                 </div>
               </div>
@@ -143,7 +143,7 @@ function Dashboard() {
                   <span className="text-3xl mb-1"> 205 </span>{" "}
                   <span className="text-md text-gray-400">
                     {" "}
-                    Items registered
+                   Sales  
                   </span>{" "}
                 </div>
               </div>
