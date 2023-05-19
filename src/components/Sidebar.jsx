@@ -1,9 +1,15 @@
-import React from "react";
-import { Routes, Route, Link, useLocation, Outlet , NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React from 'react';
+import {
+	Routes,
+	Route,
+	Link,
+	useLocation,
+	Outlet,
+	NavLink,
+} from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-
-function Sidebar() {
+export function Sidebar() {
   const [open, setOpen] = useState(true);
   const location = useLocation();
   useEffect(() => {
