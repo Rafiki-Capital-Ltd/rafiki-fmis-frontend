@@ -1,7 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useApi } from '../hooks';
+import { useState } from 'react';
+import { InputElement } from '../components';
+import { useNavigate } from 'react-router-dom';
+import { REGISTER_ROUTE } from '../api';
+
 export function Register() {
+	const [firstName, setFirstName] = useState();
+	const [lastName, setLastName] = useState();
+	const [email, setEmail] = useState();
+	const [phoneNumber, setPhoneNumber] = useState();
+	const [password, setPassword] = useState();
+
+	const navigate = useNavigate();
+	const api = useApi();
+
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const res = await api.post(REGISTER_ROUTE, {
+				firstName,
+				lastName,
+				email,
+				phoneNumber,
+				password,
+			});
+			navigate('/login');
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
 		<div className='bg-gray-100'>
 			<div className='grid grid-cols-1  md:grid-cols-3 items-center justify-center h-screen bg-gray-100'>
@@ -21,62 +52,45 @@ export function Register() {
 
 					<div className='grid grid-row-1  md:grid-row-4  '>
 						<div className='row-span-1 md:row-span-2 row-start-2'>
-							<form>
+							<form onSubmit={onSubmit}>
 								<div className='mb-5 flex justify-between gap-x-2 '>
-									<div>
-										<label className='block mb-1 text-sm font-semibold text-gray-900'>
-											First Name
-										</label>
-										<input
-											placeholder='First name'
-											className='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-											required
-										/>
-									</div>
-									<div>
-										<label className='block mb-1 text-sm font-semibold text-gray-900'>
-											Middle Name
-										</label>
-										<input
-											placeholder='Last name'
-											className='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-											required
-										/>
-									</div>
-								</div>
-								<div className='mb-5'>
-									<label className='block mb-1 text-sm font-semibold text-gray-900 '>
-										Last Name
-									</label>
-									<input
+									<InputElement
 										type='text'
-										className='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-										placeholder='Email'
-										required
+										label='First Name'
+										placeHolder='First Name'
+										required={true}
+										onChange={(e) => setFirstName(e.target.value)}
+									/>
+									<InputElement
+										type='text'
+										label='Last Name'
+										placeHolder='Last Name'
+										required={true}
+										onChange={(e) => setLastName(e.target.value)}
 									/>
 								</div>
-								<div className='mb-5'>
-									<label className='block mb-1 text-sm font-semibold text-gray-900 '>
-										Email
-									</label>
-									<input
-										type='email'
-										className='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-										placeholder='Email'
-										required
-									/>
-								</div>
-								<div className='mb-5'>
-									<label className='block mb-1 text-sm font-semibold text-gray-900'>
-										Password
-									</label>
-									<input
-										type='password'
-										placeholder='Password'
-										className='shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-										required
-									/>
-								</div>
+
+								<InputElement
+									type='email'
+									label='Email'
+									placeHolder='Email'
+									required={true}
+									onChange={(e) => setEmail(e.target.value)}
+								/>
+								<InputElement
+									type='text'
+									label='Phone Number'
+									placeHolder='Phone Number'
+									required={false}
+									onChange={(e) => setPhoneNumber(e.target.value)}
+								/>
+								<InputElement
+									type='password'
+									label='Password'
+									placeHolder='Password'
+									required={true}
+									onChange={(e) => setPassword(e.target.value)}
+								/>
 
 								<div className='flex justify-between'>
 									<button
