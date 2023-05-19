@@ -1,5 +1,11 @@
 import axios from 'axios';
+import { BASE_URL } from './routes';
 
-export default () => {
-	return axios.create({ baseURL: 'http://localhost:5050' });
-};
+export const api = axios.create({ baseURL: BASE_URL });
+
+export const apiAuth = axios.create({
+	baseURL: BASE_URL,
+	withCredentials: true,
+});
+
+export * from './routes';
