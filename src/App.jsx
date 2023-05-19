@@ -1,14 +1,9 @@
 import './index.css';
 import { Routes, Route } from 'react-router-dom';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';
-import 'primereact/resources/primereact.min.css';
+import { Login, Register, VerifyEmail } from './pages';
 
-import Register from './auth/Register';
-import Login from './auth/Login';
-import VerifyEmail from './auth/VerifyEmail';
-import Dashboard from './components/Dashboard';
-import Sidebar from './components/Sidebar';
-import PrimeChart from './components/BarChart';
+import { BarChart, Sidebar } from './components';
+import { Dashboard } from './pages';
 
 function App() {
 	return (
@@ -19,7 +14,6 @@ function App() {
 				<Route path='/verify' element={<VerifyEmail />} />
 				<Route path='/dashboard' element={<Sidebar />}>
 					<Route index element={<Dashboard />} />
-					<Route path='/dashboard/chart' element={<PrimeChart />} />
 					<Route path='/dashboard/*' element={<VerifyEmail />} />
 				</Route>
 			</Routes>
