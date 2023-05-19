@@ -13,7 +13,7 @@ export function DashboardCard({ percentage, amount, text }) {
 			<div className='row-span-1'> </div>
 			<div className='row-span-1'>
 				<div className='flex flex-col justify-start p-2 '>
-					<span className='text-3xl mb-1'>{amount}</span>{' '}
+					<span className='text-3xl mb-1'> {amount} </span>{' '}
 					<span className='text-md text-gray-400'>{text}</span>{' '}
 				</div>
 			</div>
