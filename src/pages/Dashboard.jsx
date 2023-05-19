@@ -56,7 +56,7 @@ export function Dashboard() {
           </div>
         </div>
 
-		<TableComponent />
+		<TableComponent name={"Produce"} columns={["name","quantity" , "description" , "farm"]}/>
       </div>
     </div>
   );

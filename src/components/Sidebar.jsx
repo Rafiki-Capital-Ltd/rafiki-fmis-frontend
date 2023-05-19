@@ -25,6 +25,7 @@ export function Sidebar() {
     { title: "Production", src: "file", gap: true },
     { title: "Consumption", src: "file" },
     { title: "Sales", src: "file" },
+    { title: "FarmList", src: "file" },
   ];
   useEffect(() => {
     feather.replace();
@@ -79,7 +80,7 @@ export function Sidebar() {
           </ul>
         </aside>
         <div className="flex flex-col  w-full">
-          <div className="w-full">
+          <div className="w-[100%]">
             <Navbar />
           </div>
           <main className="flex max-w-full h-full bg-gray-100">
