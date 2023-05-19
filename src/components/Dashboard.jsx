@@ -161,7 +161,7 @@ function Dashboard() {
                 <BarChart data={scanData} />
               </div>
               <div className="col-span-5  md:col-span-2 xs:h-32 ml-3 bg-white shadow-md p-2 rounded-md">
-                {/* <BarChart data={scanData} /> */}
+
               </div>
             </div>
           </div>

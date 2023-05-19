@@ -12,11 +12,12 @@ function Sidebar() {
 
   const Menus = [
     { title: "Dashboard", src: "file-text" },
-    { title: "Items", src: "mail", gap: true },
-    { title: "Groups ", src: "layers" },
-    { title: "Orders ", src: "list" },
-    { title: "Asset Manager", src: "folder", gap: true },
-    { title: "Content Editor ", src: "file" },
+    { title: "Assets ", src: "layers", gap: true },
+    { title: "Animals", src: "list" },
+    { title: "Crops", src: "folder" },
+    { title: "Production", src: "file", gap: true },
+    { title: "Consumption", src: "file" },
+    { title: "Sales", src: "file" },
   ];
   useEffect(() => {
     feather.replace();
@@ -70,7 +71,6 @@ function Sidebar() {
             ))}
           </ul>
         </aside>
-
         <Outlet />
       </div>
     </>
