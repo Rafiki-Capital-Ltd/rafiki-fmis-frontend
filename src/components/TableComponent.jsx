@@ -14,6 +14,7 @@ import { Slider } from 'primereact/slider';
 import { Tag } from 'primereact/tag';
 
 
+
 export default function TableComponent() {
     const [customers, setCustomers] = useState([]);
     const [selectedCustomers, setSelectedCustomers] = useState([]);
@@ -97,8 +98,8 @@ export default function TableComponent() {
 
     const renderHeader = () => {
         return (
-            <div className="flex flex-wrap gap-2 justify-content-between align-items-center">
-                <h4 className="m-0">Customers</h4>
+            <div className="flex justify-between flex-wrap gap-2 justify-content-between align-items-center">
+                <h4 className="m-0 pt-3 ">Customers</h4>
                 <span className="p-input-icon-left">
                     <i className="pi pi-search" />
                     <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
@@ -196,8 +197,9 @@ export default function TableComponent() {
     const header = renderHeader();
 
     return (
-      <div className=" bg-gray-200 flex-1 ">
-        <div className="card w-3/5 m-5 p-5  ">
+
+      <div className=" w-full ">
+        <div className="card bg-white m-10 p-5 rounded-md shadow-md ">
           <DataTable
             value={customers}
             paginator
@@ -223,7 +225,7 @@ export default function TableComponent() {
           >
             <Column
               selectionMode="multiple"
-              headerStyle={{ width: "3rem" }}
+              headerStyle={{ width: "2rem" }}
             ></Column>
             <Column
               field="name"
@@ -231,37 +233,26 @@ export default function TableComponent() {
               sortable
               filter
               filterPlaceholder="Search by name"
-              style={{ minWidth: "14rem" }}
+              style={{ minWidth: "11rem" }}
             />
             <Column
               field="country.name"
               header="Country"
               sortable
               filterField="country.name"
-              style={{ minWidth: "14rem" }}
+              style={{ minWidth: "11rem" }}
               body={countryBodyTemplate}
               filter
               filterPlaceholder="Search by country"
             />
-            <Column
-              header="Agent"
-              sortable
-              sortField="representative.name"
-              filterField="representative"
-              showFilterMatchModes={false}
-              filterMenuStyle={{ width: "14rem" }}
-              style={{ minWidth: "14rem" }}
-              body={representativeBodyTemplate}
-              filter
-              filterElement={representativeFilterTemplate}
-            />
+
             <Column
               field="date"
               header="Date"
               sortable
               filterField="date"
               dataType="date"
-              style={{ minWidth: "12rem" }}
+              style={{ minWidth: "10rem" }}
               body={dateBodyTemplate}
               filter
               filterElement={dateFilterTemplate}
@@ -271,7 +262,7 @@ export default function TableComponent() {
               header="Balance"
               sortable
               dataType="numeric"
-              style={{ minWidth: "12rem" }}
+              style={{ minWidth: "10rem" }}
               body={balanceBodyTemplate}
               filter
               filterElement={balanceFilterTemplate}
@@ -280,27 +271,14 @@ export default function TableComponent() {
               field="status"
               header="Status"
               sortable
-              filterMenuStyle={{ width: "14rem" }}
-              style={{ minWidth: "12rem" }}
+              filterMenuStyle={{ width: "11rem" }}
+              style={{ minWidth: "10rem" }}
               body={statusBodyTemplate}
               filter
               filterElement={statusFilterTemplate}
             />
-            <Column
-              field="activity"
-              header="Activity"
-              sortable
-              showFilterMatchModes={false}
-              style={{ minWidth: "12rem" }}
-              body={activityBodyTemplate}
-              filter
-              filterElement={activityFilterTemplate}
-            />
-            <Column
-              headerStyle={{ width: "5rem", textAlign: "center" }}
-              bodyStyle={{ textAlign: "center", overflow: "visible" }}
-              body={actionBodyTemplate}
-            />
+
+
           </DataTable>
         </div>
       </div>

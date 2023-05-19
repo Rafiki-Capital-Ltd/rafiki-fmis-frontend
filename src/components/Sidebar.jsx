@@ -8,6 +8,7 @@ import {
 	NavLink,
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Navbar from '../pages/Navbar';
 
 export function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -32,11 +33,11 @@ export function Sidebar() {
   return (
     <>
       {" "}
-      <div className="flex w-screen ">
+      <div className="flex max-w-screen ">
         <aside
           className={` ${
             open ? " w-3/4 sm:w-72" : "w-20 "
-          } bg-green-500 h-screen p-5  pt-8 sticky top-0 duration-300`}
+          } bg-green-500 h-screen p-5   pt-8 sticky top-0 duration-300`}
         >
           <span
             onClick={() => setOpen(!open)}
@@ -77,13 +78,14 @@ export function Sidebar() {
             ))}
           </ul>
         </aside>
-        <main
-          className={` ${
-            open ? " hidden md:w-[calc(100%-144px)] " : "w-[calc(100%-80px)] "
-          } `}
-        >
-          <Outlet />
-        </main>
+        <div className="flex flex-col  w-full">
+          <div className="w-full">
+            <Navbar />
+          </div>
+          <main className="flex max-w-full h-full bg-gray-100">
+            <Outlet />
+          </main>
+        </div>
       </div>
     </>
   );

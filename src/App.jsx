@@ -4,6 +4,7 @@ import { Login, Register, VerifyEmail } from './pages';
 
 import { BarChart, Sidebar } from './components';
 import { Dashboard } from './pages';
+import TableComponent from './components/TableComponent';
 
 function App() {
 	return (
@@ -14,7 +15,7 @@ function App() {
 				<Route path='/verify' element={<VerifyEmail />} />
 				<Route path='/dashboard' element={<Sidebar />}>
 					<Route index element={<Dashboard />} />
-					<Route path='/dashboard/*' element={<VerifyEmail />} />
+					<Route path='/dashboard/*' element={<TableComponent	/>} />
 				</Route>
 			</Routes>
 		</>
