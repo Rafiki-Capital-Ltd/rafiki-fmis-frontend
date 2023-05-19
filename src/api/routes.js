@@ -2,6 +2,7 @@ export const BASE_URL = 'http://localhost:5050/api';
 export const LOGIN_ROUTE = '/auth/login';
 export const LOGOUT_ROUTE = '/auth/logout';
 export const REGISTER_ROUTE = '/auth/register';
+export const PROFILE_ROUTE = '/auth/profile';
 export const FARMS_ROUTE = '/farms';
 export const FARM_ASSETS_ROUTE = '/farm-assets';
 export const FARM_ANIMALS_ROUTE = '/farm-animals';
