@@ -30,6 +30,10 @@ export function Dashboard() {
   return (
     <div className=" flex-1  ">
       <div className=" bg-gray-100 pb-4">
+        <div className="text-lg text-gray-600 font-light px-10 pt-4 pb-1 ">
+          {" "}
+          Good Morning Farmer
+        </div>
         <div
           className={` ${
             open ? " hidden sm:flex " : "flex mx-5"
@@ -47,17 +51,33 @@ export function Dashboard() {
               : " flex flex-wrap justify-around "
           } `}
         >
+          {" "}
           <div className={`${open ? "" : "mx-10"} grid grid-cols-5 flex-1 `}>
-            <div className="col-span-5 md:col-span-3 xs:h-32  bg-white shadow-md p-2 rounded-md">
-              <BarChart data={scanData} />
+            <div className="col-span-5 md:col-span-3 xs:h-32 ">
+              <div className="text-lg text-gray-600 font-light py-3">
+                {" "}
+                Chart showing production per month
+              </div>
+              <div className="bg-white shadow-md rounded-md p-5">
+                <BarChart data={scanData} />
+              </div>
             </div>
-            <div className="col-span-5  md:col-span-2 xs:h-32 ml-3 bg-white shadow-md p-2 rounded-md">
-    			 <PieChart/>
+            <div className="col-span-5  md:col-span-2 xs:h-32 ml-3 ">
+              <div className="text-lg text-gray-600 font-light py-3">
+                {" "}
+                Chart showing production per crop
+              </div>
+              <div className="bg-white shadow-md rounded-md p-5">
+                <PieChart />
+              </div>
             </div>
           </div>
         </div>
 
-		<TableComponent name={"Produce"} columns={["name","quantity" , "description" , "farm"]}/>
+        <TableComponent
+          name={"Produce"}
+          columns={["name", "quantity", "description", "farm"]}
+        />
       </div>
     </div>
   );
