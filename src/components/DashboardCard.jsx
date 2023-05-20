@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export function DashboardCard({ percentage, amount, text }) {
 	return (
 		<div className='grid grid-row-4 shadow-md h-32 w-64 my-5 rounded-lg bg-white sm:m-3 lg:m-0 lg:my-5 '>

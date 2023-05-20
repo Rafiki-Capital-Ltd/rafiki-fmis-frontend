@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Navbar from '../pages/Navbar';
+import { GiCorn } from "react-icons/gi";
 
 export function Sidebar() {
   const [open, setOpen] = useState(true);
@@ -48,7 +49,13 @@ export function Sidebar() {
             <i data-feather="chevron-left"> </i>
           </span>
 
-          <div className="flex gap-x-4 items-center justify-center"></div>
+          <div className="flex items-center justify-center gap-x-2 text-3xl pb-5 pt-5">
+            <div className="text-white text-2xl">
+              {" "}
+              <GiCorn />
+            </div>{" "}
+            <p className="text-xl text-white">Rafiki FMIS</p>
+          </div>
           <ul className="pt-6">
             {Menus.map((Menu, index) => (
               <NavLink
