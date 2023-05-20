@@ -1,9 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-function Assets() {
-  return (
-    <div>Assets</div>
-  )
+export function Assets() {
+	return <div>Assets</div>;
 }
-
-export default Assets
