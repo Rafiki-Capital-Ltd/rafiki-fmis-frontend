@@ -2,8 +2,8 @@
 import TableComponent from "../components/TableComponent";
 import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
-import { InputElement } from "../components";
-import Navbar from "./Navbar";
+import { InputElement  } from "../components";
+
 
 function Assets() {
   useEffect(() => {
