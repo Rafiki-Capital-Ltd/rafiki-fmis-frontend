@@ -1,17 +1,44 @@
 import { useEffect, useState } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { InputElement, Navbar, TableComponent } from '../components';
+import { useApiAuth } from '../hooks';
+import { FARMS_ROUTE } from '../api';
 
 export function Farms() {
+	const [name, setName] = useState();
+	const [size, setSize] = useState(0);
+	const [county, setCounty] = useState();
+	const [ward, setWard] = useState();
+
+	const api = useApiAuth();
+
+	const onSubmit = async (e) => {
+		e.preventDefault();
+		try {
+			const res = await api.post(FARMS_ROUTE, {
+				name,
+				size,
+				county: { name: county },
+				ward: { name: ward },
+			});
+			console.log(res.data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	useEffect(() => {
 		feather.replace();
-	});
-	const [value, setValue] = useState();
+	}, []);
 
 	const [visible, setVisible] = useState(false);
+
 	const footerContent = (
 		<div>
-			<button className='bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md'>
+			<button
+				onClick={onSubmit}
+				className='bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md'
+			>
 				<p className='flex items-center'> Create</p>
 			</button>
 		</div>
@@ -56,16 +83,16 @@ export function Farms() {
 					<div className='col-span-3 p-5'>
 						<InputElement
 							type='text'
-							label='Farm Title'
-							placeHolder='Farm Title'
+							label='Farm Name'
+							placeHolder='Farm Name'
 							required={true}
-							onChange={(e) => setFarmTitle(e.target.value)}
+							onChange={(e) => setName(e.target.value)}
 						/>
 					</div>
 
 					<div className='col-span-3 p-5'>
 						<InputElement
-							type='text'
+							type='number'
 							label='Size '
 							placeHolder='size in Acerage'
 							required={true}
@@ -76,36 +103,18 @@ export function Farms() {
 						<InputElement
 							type='text'
 							label='County'
-							placeHolder='county of origin '
+							placeHolder='County'
 							required={true}
-							onChange={(e) => setFarmTitle(e.target.value)}
+							onChange={(e) => setCounty(e.target.value)}
 						/>
 					</div>
 					<div className='col-span-3 p-5'>
 						<InputElement
 							type='text'
 							label='Ward'
-							placeHolder='ward'
+							placeHolder='Ward'
 							required={true}
-							onChange={(e) => setFarmTitle(e.target.value)}
-						/>
-					</div>
-					<div className='col-span-3 p-5'>
-						<InputElement
-							type='text'
-							label='Nearest Shopping Center'
-							placeHolder='Nearest Shopping Center'
-							required={true}
-							onChange={(e) => setFarmTitle(e.target.value)}
-						/>
-					</div>
-					<div className='col-span-3 p-5'>
-						<InputElement
-							type='text'
-							label='Location'
-							placeHolder='location'
-							required={true}
-							onChange={(e) => setFarmTitle(e.target.value)}
+							onChange={(e) => setWard(e.target.value)}
 						/>
 					</div>
 				</div>

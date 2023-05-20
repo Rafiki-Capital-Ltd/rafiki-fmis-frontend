@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useApiAuth } from '../hooks';
+import { useApi, useApiAuth } from '../hooks';
 import { LOGIN_ROUTE } from '../api';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,12 +11,12 @@ export function Login() {
 	const [password, setPassword] = useState();
 
 	const navigate = useNavigate();
-	const apiAuth = useApiAuth();
+	const api = useApi();
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await apiAuth.get(LOGIN_ROUTE, {
+			const res = await api.get(LOGIN_ROUTE, {
 				headers: {
 					Authorization: `Basic ${btoa(`${email}:${password}`)}`,
 				},
