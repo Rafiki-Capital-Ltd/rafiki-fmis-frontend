@@ -40,7 +40,7 @@ export  function PieChart({data}) {
   }, []);
 
   return (
-    <div className="h-full pb-6">
+    <div className="h-full ">
       <Chart type="pie" data={chartData} options={chartOptions} className="" />
     </div>
   );

@@ -2,6 +2,7 @@ import TableComponent from "../components/TableComponent";
 import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputElement } from "../components";
+import Navbar from "./Navbar";
         
 
 function RegisterFarm() {
@@ -23,7 +24,11 @@ function RegisterFarm() {
           );
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-gray-100 flex flex-col h-screen">
+      <div className="bg-white w-full">
+        {" "}
+        <Navbar />
+      </div>
       <div className="flex justify-between w-full px-10 py-5">
         <div className="flex py-2  text-gray-600 text-[20px]">
           {" "}
@@ -45,7 +50,7 @@ function RegisterFarm() {
           "county",
           "ward",
           "nearestShoppingCenter",
-          "location",
+          "Preview"
         ]}
       />
       <Dialog

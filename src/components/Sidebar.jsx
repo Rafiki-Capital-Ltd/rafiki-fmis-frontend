@@ -54,7 +54,7 @@ export function Sidebar() {
               {" "}
               <GiCorn />
             </div>{" "}
-            <p className="text-xl text-white">Rafiki FMIS</p>
+            <p className={` ${ !open ? "hidden" : "flex text-white"} text-xl text-white`}>Rafiki FMIS</p>
           </div>
           <ul className="pt-6">
             {Menus.map((Menu, index) => (

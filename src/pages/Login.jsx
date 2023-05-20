@@ -21,7 +21,7 @@ export function Login() {
 					Authorization: `Basic ${btoa(`${email}:${password}`)}`,
 				},
 			});
-			navigate('/dashboard');
+			navigate('/farms');
 		} catch (err) {
 			console.error(err);
 		}
