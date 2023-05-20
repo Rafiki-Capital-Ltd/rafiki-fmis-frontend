@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,14 +9,44 @@ import {
 	PieChart,
 	TableComponent,
 } from '../components';
+import { useApiAuth } from '../hooks';
+import {
+	FARM_ASSETS_COUNT_ROUTE,
+	FARM_CONSUMPTIONS_TOTAL_ROUTE,
+	FARM_CONTEXT_ROUTE,
+	FARM_PRODUCTIONS_TOTAL_ROUTE,
+	FARM_SALES_TOTAL_ROUTE,
+} from '../api';
 
 export function Dashboard() {
+	const [farm, setFarm] = useState({});
 	const [open, setOpen] = useState(false);
 	const [pieChartData, setPieChartData] = useState({});
-
 	const [barChartData, setBarChartData] = useState({});
 
+	const [counts, setCounts] = useState({
+		assets: 0,
+		production: 0,
+		sales: 0,
+		consumption: 0,
+	});
+
 	const navigate = useNavigate();
+	const api = useApiAuth();
+
+	const effectRun = useRef(false);
+	useEffect(() => {
+		if (!effectRun.current) getFarm();
+		effectRun.current = true;
+		return () => false;
+	}, []);
+
+	const effectRun2 = useRef(false);
+	useEffect(() => {
+		if (!effectRun2.current) getCounts();
+		effectRun2.current = true;
+		return () => effectRun2.current;
+	}, [farm]);
 
 	useEffect(() => {
 		const documentStyle = getComputedStyle(document.documentElement);
@@ -54,22 +84,58 @@ export function Dashboard() {
 		feather.replace();
 	}, []);
 
+	const getFarm = async () => {
+		try {
+			const res = await api.get(FARM_CONTEXT_ROUTE);
+			setFarm(res.data);
+		} catch (error) {
+			console.error(error);
+			navigate('/farms');
+		}
+	};
+
+	const getCounts = async () => {
+		try {
+			const assetsTotal = (await api.get(FARM_ASSETS_COUNT_ROUTE)).data;
+			const productionTotal = (await api.get(FARM_PRODUCTIONS_TOTAL_ROUTE))
+				.data;
+			const salesTotal = (await api.get(FARM_SALES_TOTAL_ROUTE)).data;
+			const consumptionTotal = (await api.get(FARM_CONSUMPTIONS_TOTAL_ROUTE))
+				.data;
+			setCounts({
+				assets: assetsTotal,
+				production: productionTotal,
+				sales: salesTotal,
+				consumption: consumptionTotal,
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
 		<div className=' flex-1  '>
 			<div className=' bg-gray-100 pb-4'>
-				<div className='text-lg text-gray-600 font-light px-10 pt-4 pb-1 '>
-					{' '}
-					Good Morning Farmer
+				<div className='text-gray-600 font-semibold text-2xl px-10 pt-4 pb-1 '>
+					{farm.name}
 				</div>
 				<div
 					className={` ${
 						open ? ' hidden sm:flex ' : 'flex mx-5 gap-x-2'
 					} flex flex-row flex-wrap justify-around items-center`}
 				>
-					<DashboardCard percentage={7} amount={7} text='Assets' />
-					<DashboardCard percentage={7} amount={7} text='Expenses' />
-					<DashboardCard percentage={7} amount={7} text='Production' />
-					<DashboardCard percentage={7} amount={7} text='Consumption' />
+					<DashboardCard percentage={7} amount={counts.assets} text='Assets' />
+					<DashboardCard
+						percentage={7}
+						amount={counts.production}
+						text='Production'
+					/>
+					<DashboardCard percentage={7} amount={counts.sales} text='Sales' />
+					<DashboardCard
+						percentage={7}
+						amount={counts.consumption}
+						text='Consumption'
+					/>
 				</div>
 				<div
 					className={` ${
