@@ -283,7 +283,7 @@ export default function TableComponent({ name, columns }) {
 
   return (
     <div className=" w-full ">
-      <div className="card bg-white m-10 p-5 rounded-md shadow-md ">
+      <div className="card bg-white m-5 p-5 rounded-md shadow-md ">
         <DataTable
           value={customers}
           paginator

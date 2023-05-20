@@ -16,8 +16,11 @@ function App() {
         <Route path="/verify" element={<VerifyEmail />} />
         <Route path="/dashboard" element={<Sidebar />}>
           <Route index element={<Dashboard />} />
-          <Route path="/dashboard/*" element={<TableComponent />} />
+          <Route path="/dashboard/*" element={<VerifyEmail />} />
           <Route path="/dashboard/farmlist" element={<RegisterFarm />} />
+          <Route path="/dashboard/assets" element={<Dashboard />} />
+          <Route path="/dashboard/animals" element={<RegisterFarm />} />
+          <Route path="/dashboard/crops" element={<Dashboard />} />
         </Route>
       </Routes>
     </>

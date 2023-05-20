@@ -9,6 +9,7 @@ import { BarChart, DashboardCard , PieChart } from "../components";
 
 export function Dashboard() {
   const [open, setOpen] = useState(false);
+  const [number , setNumber ] = useState(null);
 
   const [scanData, setScanData] = useState({
     labels: data.map((item) => item.month),
@@ -25,6 +26,7 @@ export function Dashboard() {
 
   useEffect(() => {
     feather.replace();
+	setNumber(1)
   });
 
   return (
@@ -36,7 +38,7 @@ export function Dashboard() {
         </div>
         <div
           className={` ${
-            open ? " hidden sm:flex " : "flex mx-5"
+            open ? " hidden sm:flex " : "flex mx-5 gap-x-2"
           } flex flex-row flex-wrap justify-around items-center`}
         >
           <DashboardCard percentage={7} amount={7} text="Assets" />
@@ -52,13 +54,13 @@ export function Dashboard() {
           } `}
         >
           {" "}
-          <div className={`${open ? "" : "mx-10"} grid grid-cols-5 flex-1 `}>
+          <div className={`${open ? "" : "mx-5"} grid grid-cols-5 flex-1 `}>
             <div className="col-span-5 md:col-span-3 xs:h-32 ">
               <div className="text-lg text-gray-600 font-light py-3">
                 {" "}
                 Chart showing production per month
               </div>
-              <div className="bg-white shadow-md rounded-md p-5">
+              <div className="bg-white shadow-md rounded-md p-5 h-9/10">
                 <BarChart data={scanData} />
               </div>
             </div>
@@ -67,7 +69,7 @@ export function Dashboard() {
                 {" "}
                 Chart showing production per crop
               </div>
-              <div className="bg-white shadow-md rounded-md p-5">
+              <div className="bg-white shadow-md rounded-md p-5 ">
                 <PieChart />
               </div>
             </div>

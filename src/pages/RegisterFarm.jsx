@@ -24,8 +24,8 @@ function RegisterFarm() {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between w-full p-10">
-        <div className="flex p-2  text-gray-600 text-[20px]">
+      <div className="flex justify-between w-full px-10 py-5">
+        <div className="flex py-2  text-gray-600 text-[20px]">
           {" "}
           Registered Farms{" "}
         </div>

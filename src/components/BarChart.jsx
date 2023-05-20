@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useLayoutEffect} from 'react';
 import { Chart } from 'primereact/chart';
 
 export function BarChart({ data }) {
 	const [chartData, setChartData] = useState({});
 	const [chartOptions, setChartOptions] = useState({});
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		const documentStyle = getComputedStyle(document.documentElement);
 		const textColor = documentStyle.getPropertyValue('--text-color');
 		const textColorSecondary = documentStyle.getPropertyValue(
@@ -51,5 +51,9 @@ export function BarChart({ data }) {
 		setChartOptions(options);
 	}, []);
 
-	return <Chart type='bar' data={data} options={chartOptions} />;
+	return (
+    <div className="">
+      <Chart type="bar" data={data} options={chartOptions} className='h-full'/>;
+    </div>
+  ); 
 }

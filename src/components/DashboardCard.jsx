@@ -2,7 +2,7 @@ import React from 'react';
 
 export function DashboardCard({ percentage, amount, text }) {
 	return (
-		<div className='grid grid-row-4 shadow-md h-32 w-56 my-5 rounded-lg bg-white sm:m-3 lg:m-0 lg:my-5 '>
+		<div className='grid grid-row-4 shadow-md h-32 w-64 my-5 rounded-lg bg-white sm:m-3 lg:m-0 lg:my-5 '>
 			<div className='row-span-1'>
 				<div className='flex justify-end p-2 text-green-500 text-sm '>
 					<i data-feather='chevron-up' className='text-xs '></i>
