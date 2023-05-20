@@ -26,7 +26,7 @@ export function Sidebar() {
 		{ title: 'Production', src: 'file', gap: true },
 		{ title: 'Consumption', src: 'file' },
 		{ title: 'Sales', src: 'file' },
-		{ title: 'FarmList', src: 'file' },
+		{ title: 'Farms', src: 'file' },
 	];
 	useEffect(() => {
 		feather.replace();
@@ -49,15 +49,15 @@ export function Sidebar() {
 						<i data-feather='chevron-left'> </i>
 					</span>
 
-					<div className='flex items-center justify-center gap-x-2 text-3xl pb-5 pt-5'>
-						<div className='text-white text-2xl'>
+					<div className='flex items-center justify-center gap-x-2 font-semibold pb-5 pt-5'>
+						<div className='text-white text-3xl'>
 							{' '}
 							<GiCorn />
 						</div>{' '}
 						<p
 							className={` ${
 								!open ? 'hidden' : 'flex text-white'
-							} text-xl text-white`}
+							} text-2xl text-white`}
 						>
 							Rafiki FMIS
 						</p>
@@ -68,6 +68,8 @@ export function Sidebar() {
 								to={
 									Menu.title === 'Dashboard'
 										? '/dashboard'
+										: Menu.title === 'Farms'
+										? '/farms'
 										: `/dashboard/${Menu.title.toLowerCase()}`
 								}
 							>

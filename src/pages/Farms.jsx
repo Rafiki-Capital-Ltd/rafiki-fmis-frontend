@@ -3,6 +3,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputElement, Navbar, TableComponent } from '../components';
 import { useApiAuth } from '../hooks';
 import { FARMS_ROUTE } from '../api';
+import { useNavigate } from 'react-router-dom';
 
 export function Farms() {
 	const [name, setName] = useState();
@@ -10,6 +11,9 @@ export function Farms() {
 	const [county, setCounty] = useState();
 	const [ward, setWard] = useState();
 
+	const [farms, setFarms] = useState([]);
+
+	const navigate = useNavigate();
 	const api = useApiAuth();
 
 	const onSubmit = async (e) => {
@@ -21,7 +25,7 @@ export function Farms() {
 				county: { name: county },
 				ward: { name: ward },
 			});
-			console.log(res.data);
+			navigate('/dashboard');
 		} catch (error) {
 			console.error(error);
 		}
@@ -29,7 +33,19 @@ export function Farms() {
 
 	useEffect(() => {
 		feather.replace();
+		getFarms();
+
+		return () => false;
 	}, []);
+
+	const getFarms = async () => {
+		try {
+			const res = await api.get(FARMS_ROUTE);
+			setFarms(res.data.content);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	const [visible, setVisible] = useState(false);
 
@@ -63,14 +79,8 @@ export function Farms() {
 			</div>
 			<TableComponent
 				name={'Farms'}
-				columns={[
-					'name',
-					'size',
-					'county',
-					'ward',
-					'nearestShoppingCenter',
-					'Preview',
-				]}
+				columns={['name', 'size', 'county', 'ward', 'Preview']}
+				data={farms}
 			/>
 			<Dialog
 				header='Add New Farm'

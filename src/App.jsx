@@ -23,7 +23,6 @@ function App() {
 				<Route path='/dashboard' element={<Sidebar />}>
 					<Route index element={<Dashboard />} />
 					<Route path='/dashboard/*' element={<VerifyEmail />} />
-
 					<Route path='/dashboard/assets' element={<Assets />} />
 					<Route path='/dashboard/animals' element={<Animals />} />
 					<Route path='/dashboard/crops' element={<Crops />} />
