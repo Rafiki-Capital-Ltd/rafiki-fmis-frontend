@@ -50,7 +50,7 @@ export function Sidebar() {
           </span>
 
           <div className="flex items-center justify-center gap-x-2 text-3xl pb-5 pt-5">
-            <div className="text-white text-2xl">
+            <div className="text-white text-4xl">
               {" "}
               <GiCorn />
             </div>{" "}

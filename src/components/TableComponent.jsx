@@ -313,6 +313,7 @@ export default function TableComponent({ name, columns }) {
           ></Column>
           {columns.map((column) => (
             <Column
+              key={column}
               field="name"
               header={column.charAt(0).toUpperCase() + column.slice(1)}
               sortable
@@ -321,7 +322,6 @@ export default function TableComponent({ name, columns }) {
               style={{ minWidth: "6rem" }}
             />
           ))}
-       
         </DataTable>
       </div>
     </div>
