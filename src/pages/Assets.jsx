@@ -1,11 +1,10 @@
 
-import TableComponent from "../components/TableComponent";
 import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
-import { InputElement  } from "../components";
+import { InputElement, TableComponent } from "../components";
 
 
-function Assets() {
+export function Assets() {
   useEffect(() => {
     feather.replace();
   });
@@ -115,5 +114,3 @@ function Assets() {
     </div>
   );
 }
-
-export default Assets;

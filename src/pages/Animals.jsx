@@ -1,10 +1,10 @@
-import TableComponent from "../components/TableComponent";
+
 import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
-import { InputElement } from "../components";
-import Navbar from "./Navbar";
+import { InputElement ,TableComponent } from "../components";
 
-function Animals() {
+
+export function Animals() {
   useEffect(() => {
     feather.replace();
   });
@@ -111,4 +111,3 @@ function Animals() {
   );
 }
 
-export default Animals;
