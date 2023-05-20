@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
 
-export  function PieChart() {
+export  function PieChart({data}) {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
 

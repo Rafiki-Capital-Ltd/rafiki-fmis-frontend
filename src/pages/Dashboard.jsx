@@ -9,9 +9,9 @@ import { BarChart, DashboardCard , PieChart } from "../components";
 
 export function Dashboard() {
   const [open, setOpen] = useState(false);
-  const [number , setNumber ] = useState(null);
+  const [pieChartData, setPieChartData] = useState({})
 
-  const [scanData, setScanData] = useState({
+  const [barChartData, setBarChartData] = useState({
     labels: data.map((item) => item.month),
     datasets: [
       {
@@ -25,8 +25,27 @@ export function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
+	    const documentStyle = getComputedStyle(document.documentElement);
+		const pieData = {
+          labels: ["Maize", "Beans", "Potatoes"],
+          datasets: [
+            {
+              data: [540, 325, 702],
+              backgroundColor: [
+                documentStyle.getPropertyValue("--blue-500"),
+                documentStyle.getPropertyValue("--yellow-500"),
+                documentStyle.getPropertyValue("--green-500"),
+              ],
+              hoverBackgroundColor: [
+                documentStyle.getPropertyValue("--blue-400"),
+                documentStyle.getPropertyValue("--yellow-400"),
+                documentStyle.getPropertyValue("--green-400"),
+              ],
+            },
+          ],
+        };
+		setPieChartData(pieData)
     feather.replace();
-	setNumber(1)
   });
 
   return (
@@ -61,7 +80,7 @@ export function Dashboard() {
                 Chart showing production per month
               </div>
               <div className="bg-white shadow-md rounded-md p-5 h-9/10">
-                <BarChart data={scanData} />
+                <BarChart data={barChartData} />
               </div>
             </div>
             <div className="col-span-5  md:col-span-2 xs:h-32 ml-3 ">
@@ -70,7 +89,7 @@ export function Dashboard() {
                 Chart showing production per crop
               </div>
               <div className="bg-white shadow-md rounded-md p-5 ">
-                <PieChart />
+                <PieChart  data={pieChartData}/>
               </div>
             </div>
           </div>
