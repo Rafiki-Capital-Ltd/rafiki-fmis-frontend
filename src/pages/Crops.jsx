@@ -1,11 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-function Crops() {
-  return (
-    <div>
-      
-    </div>
-  )
+export function Crops() {
+	return <div></div>;
 }
-
-export default Crops

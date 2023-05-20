@@ -8,46 +8,46 @@ import {
 	NavLink,
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Navbar from '../pages/Navbar';
-import { GiCorn } from "react-icons/gi";
+import { GiCorn } from 'react-icons/gi';
+import { Navbar } from './Navbar';
 
 export function Sidebar() {
-  const [open, setOpen] = useState(true);
-  const location = useLocation();
-  useEffect(() => {
-    console.log(location.pathname);
-  }, [location]);
+	const [open, setOpen] = useState(true);
+	const location = useLocation();
+	useEffect(() => {
+		console.log(location.pathname);
+	}, [location]);
 
-  const Menus = [
-    { title: "Dashboard", src: "file-text" },
-    { title: "Assets ", src: "layers", gap: true },
-    { title: "Animals", src: "list" },
-    { title: "Crops", src: "folder" },
-    { title: "Production", src: "file", gap: true },
-    { title: "Consumption", src: "file" },
-    { title: "Sales", src: "file" },
-    { title: "FarmList", src: "file" },
-  ];
-  useEffect(() => {
-    feather.replace();
-  });
+	const Menus = [
+		{ title: 'Dashboard', src: 'file-text' },
+		{ title: 'Assets ', src: 'layers', gap: true },
+		{ title: 'Animals', src: 'list' },
+		{ title: 'Crops', src: 'folder' },
+		{ title: 'Production', src: 'file', gap: true },
+		{ title: 'Consumption', src: 'file' },
+		{ title: 'Sales', src: 'file' },
+		{ title: 'FarmList', src: 'file' },
+	];
+	useEffect(() => {
+		feather.replace();
+	});
 
-  return (
-    <>
-      {" "}
-      <div className="flex max-w-screen ">
-        <aside
-          className={` ${
-            open ? " w-3/4 sm:w-72" : "w-20 "
-          } bg-green-500 h-screen p-5   pt-8 sticky top-0 duration-300`}
-        >
-          <span
-            onClick={() => setOpen(!open)}
-            className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full bg-white ${!open && "rotate-180"}`}
-          >
-            <i data-feather="chevron-left"> </i>
-          </span>
+	return (
+		<>
+			{' '}
+			<div className='flex max-w-screen '>
+				<aside
+					className={` ${
+						open ? ' w-3/4 sm:w-72' : 'w-20 '
+					} bg-green-500 h-screen p-5   pt-8 sticky top-0 duration-300`}
+				>
+					<span
+						onClick={() => setOpen(!open)}
+						className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
+           border-2 rounded-full bg-white ${!open && 'rotate-180'}`}
+					>
+						<i data-feather='chevron-left'> </i>
+					</span>
 
           <div className="flex items-center justify-center gap-x-2 text-3xl pb-5 pt-5">
             <div className="text-white text-4xl">
@@ -76,27 +76,27 @@ export function Sidebar() {
                 >
                   <i data-feather={Menu.src}></i>
 
-                  <span
-                    className={`${!open && "hidden"} origin-left duration-200`}
-                  >
-                    {Menu.title}
-                  </span>
-                </li>{" "}
-              </NavLink>
-            ))}
-          </ul>
-        </aside>
-        <div className="flex flex-col  w-full">
-          <div className="w-[100%]">
-            <Navbar />
-          </div>
-          <main className="flex max-w-full h-full bg-gray-100">
-            <Outlet />
-          </main>
-        </div>
-      </div>
-    </>
-  );
+									<span
+										className={`${!open && 'hidden'} origin-left duration-200`}
+									>
+										{Menu.title}
+									</span>
+								</li>{' '}
+							</NavLink>
+						))}
+					</ul>
+				</aside>
+				<div className='flex flex-col  w-full'>
+					<div className='w-[100%]'>
+						<Navbar />
+					</div>
+					<main className='flex max-w-full h-full bg-gray-100'>
+						<Outlet />
+					</main>
+				</div>
+			</div>
+		</>
+	);
 }
 
 export default Sidebar;
