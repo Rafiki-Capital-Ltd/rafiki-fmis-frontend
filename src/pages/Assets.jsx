@@ -42,7 +42,6 @@ export function Assets() {
           "size",
           "county",
           "ward",
-          "nearestShoppingCenter",
           "Preview",
         ]}
       />
@@ -91,24 +90,8 @@ export function Assets() {
               onChange={(e) => setFarmTitle(e.target.value)}
             />
           </div>
-          <div className="col-span-3 p-5">
-            <InputElement
-              type="text"
-              label="Nearest Shopping Center"
-              placeHolder="Nearest Shopping Center"
-              required={true}
-              onChange={(e) => setFarmTitle(e.target.value)}
-            />
-          </div>
-          <div className="col-span-3 p-5">
-            <InputElement
-              type="text"
-              label="Location"
-              placeHolder="location"
-              required={true}
-              onChange={(e) => setFarmTitle(e.target.value)}
-            />
-          </div>
+  
+
         </div>
       </Dialog>
     </div>
