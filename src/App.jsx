@@ -31,7 +31,6 @@ function App() {
           <Route path="/dashboard/consumption" element={<Consumption/>} />
           <Route path="/dashboard/production" element={<Production/>} />
           <Route path="/dashboard/sales" element={<Sales />} />
-		  <Route path="/dashboard/farms" element={<Farms />} />
         </Route>
       </Routes>
     </>

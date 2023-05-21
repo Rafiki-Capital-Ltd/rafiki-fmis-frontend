@@ -90,7 +90,7 @@ export function Dashboard() {
 			setFarm(res.data);
 		} catch (error) {
 			console.error(error);
-			navigate('/farms');
+			// navigate('/farms');
 		}
 	};
 
