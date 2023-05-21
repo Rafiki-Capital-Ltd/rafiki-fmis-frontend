@@ -71,9 +71,14 @@ export function Farms() {
       ) : null}
 
       <div className="flex justify-between w-full px-10 py-5">
-        <div className="flex py-2  text-gray-600 text-3xl font-semibold">
-          My Farms
-        </div>
+        {location === "/farms" ? (
+          <div className="flex py-2  text-gray-600 text-3xl font-semibold">
+            My Farms
+          </div>
+        ) : (
+          <div className="flex py-2  text-gray-600 text-2xl ">My Farms</div>
+        )}
+
         <button
           className="flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg"
           onClick={() => setVisible(true)}
