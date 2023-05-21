@@ -10,7 +10,7 @@ export function Farms() {
 	const [size, setSize] = useState(0);
 	const [county, setCounty] = useState();
 	const [ward, setWard] = useState();
-
+	
 	const [farms, setFarms] = useState([]);
 
 	const navigate = useNavigate();
@@ -42,6 +42,7 @@ export function Farms() {
 		try {
 			const res = await api.get(FARMS_ROUTE);
 			setFarms(res.data.content);
+			console.log(Object.keys(farms[0]));
 		} catch (error) {
 			console.error(error);
 		}

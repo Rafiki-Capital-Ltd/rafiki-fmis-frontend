@@ -15,13 +15,13 @@ export function Login() {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const res = await api.post(LOGIN_ROUTE, { email, password });
-			localStorage.setItem('accessToken', res.data.accessToken);
-			navigate('/farms');
-		} catch (err) {
-			console.error(err);
-		}
+		// try {
+		// 	const res = await api.post(LOGIN_ROUTE, { email, password });
+		// 	localStorage.setItem('accessToken', res.data.accessToken);
+		// 	navigate('/farms');
+		// } catch (err) {
+		// 	console.error(err);
+		// }
 	};
 
 	return (

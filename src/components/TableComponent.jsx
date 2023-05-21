@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -61,6 +61,9 @@ export function TableComponent({ name, columns, data }) {
 	};
 
 	const header = renderHeader();
+    useEffect(() => {
+        console.log(data)
+    }, [data]);
 
 	return (
 		<div className=' w-full '>
@@ -94,7 +97,7 @@ export function TableComponent({ name, columns, data }) {
 					></Column>
 					{columns.map((column) => (
 						<Column
-							field='name'
+							field={ column}
 							header={column.charAt(0).toUpperCase() + column.slice(1)}
 							sortable
 							filter
