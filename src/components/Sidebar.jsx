@@ -72,8 +72,8 @@ export function Sidebar() {
                 to={
                   Menu.title === "Dashboard"
                     ? "/dashboard"
-                    : Menu.title === "Farms"
-                    ? "/farms"
+                    // : Menu.title === "Farms"
+                    // ? "/farms"
                     : `/dashboard/${Menu.title.toLowerCase()}`
                 }
               >

@@ -23,7 +23,7 @@ export function Assets() {
     <div className="w-full bg-gray-100 flex flex-col h-screen">
 
       <div className="flex justify-between w-full px-10 py-5">
-        <div className="flex py-2  text-gray-600 text-[20px]">
+        <div className="flex py-2  text-gray-600 text-2xl">
           {" "}
         Assets{" "}
         </div>
@@ -36,7 +36,7 @@ export function Assets() {
         </button>
       </div>{" "}
       <TableComponent
-        name={"Farms"}
+        name={"Assets"}
         columns={[
           "name",
           "size",
@@ -46,7 +46,7 @@ export function Assets() {
         ]}
       />
       <Dialog
-        header="Add New Farm"
+        header="Add New Asset"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={() => setVisible(false)}

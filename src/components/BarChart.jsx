@@ -52,8 +52,8 @@ export function BarChart({ data }) {
 	}, []);
 
 	return (
-    <div className="">
-      <Chart type="bar" data={data} options={chartOptions} className='h-full'/>
+    <div className="h-full">
+      <Chart type="bar" data={data} options={chartOptions}  />
     </div>
   ); 
 }

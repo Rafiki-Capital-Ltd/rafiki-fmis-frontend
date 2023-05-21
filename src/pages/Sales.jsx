@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { InputElement, TableComponent } from "../components";
 
-export function Production() {
+export function Sales() {
   useEffect(() => {
     feather.replace();
   });
@@ -20,27 +20,26 @@ export function Production() {
   return (
     <div className="w-full bg-gray-100 flex flex-col h-screen">
       <div className="flex justify-between w-full px-10 py-5">
-        <div className="flex py-2  text-gray-600 text-[20px]"> Production </div>
+        <div className="flex py-2  text-gray-600 text-2xl">Sales </div>
         <button
           className="flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg"
           onClick={() => setVisible(true)}
         >
           <i data-feather="plus" className=""></i>{" "}
-          <p className="pl-1 pr-2"> Add New </p>
+          <p className="pl-1 pr-2"> Add New Sale</p>
         </button>
       </div>{" "}
       <TableComponent
-        name={"Production"}
+        name={"Sales"}
         columns={[
           "name",
           "size",
           "county",
           "ward",
-          "Preview",
         ]}
       />
       <Dialog
-        header="Add New Farm"
+        header="Add New Sale"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={() => setVisible(false)}
@@ -84,7 +83,15 @@ export function Production() {
               onChange={(e) => setFarmTitle(e.target.value)}
             />
           </div>
-
+          <div className="col-span-3 p-5">
+            <InputElement
+              type="text"
+              label="Nearest Shopping Center"
+              placeHolder="Nearest Shopping Center"
+              required={true}
+              onChange={(e) => setFarmTitle(e.target.value)}
+            />
+          </div>
           <div className="col-span-3 p-5">
             <InputElement
               type="text"

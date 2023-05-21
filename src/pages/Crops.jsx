@@ -20,7 +20,7 @@ export function Crops() {
   return (
     <div className="w-full bg-gray-100 flex flex-col h-screen">
       <div className="flex justify-between w-full px-10 py-5">
-        <div className="flex py-2  text-gray-600 text-[20px]"> Crops </div>
+        <div className="flex py-2  text-gray-600 text-2xl"> Crops </div>
         <button
           className="flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg"
           onClick={() => setVisible(true)}
@@ -36,7 +36,7 @@ export function Crops() {
           "size",
           "county",
           "ward",
-          "nearestShoppingCenter",
+
           "Preview",
         ]}
       />
