@@ -1,4 +1,4 @@
-import { apiAuth as api } from './api';
+import { api } from './api';
 import {
 	FARMS_ROUTE,
 	LOGIN_ROUTE,
@@ -29,6 +29,11 @@ export async function logout() {
 
 export async function getFarms() {
 	const res = await api.get(FARMS_ROUTE);
+	return res.data;
+}
+
+export async function getFarm(farmId) {
+	const res = await api.get(`${FARMS_ROUTE}/${farmId}`);
 	return res.data;
 }
 

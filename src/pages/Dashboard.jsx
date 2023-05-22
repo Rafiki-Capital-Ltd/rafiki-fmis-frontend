@@ -9,7 +9,7 @@ import {
 	PieChart,
 	TableComponent,
 } from '../components';
-import { useApiAuth } from '../hooks';
+import { useApi } from '../hooks';
 import {
 	FARM_ASSETS_COUNT_ROUTE,
 	FARM_CONSUMPTIONS_TOTAL_ROUTE,
@@ -32,7 +32,7 @@ export function Dashboard() {
 	});
 
 	const navigate = useNavigate();
-	const api = useApiAuth();
+	const api = useApi();
 
 	const effectRun = useRef(false);
 	useEffect(() => {
@@ -144,7 +144,7 @@ export function Dashboard() {
 							: ' flex flex-wrap justify-around '
 					} `}
 				>
-					{' '} 
+					{' '}
 					<div className={`${open ? '' : 'mx-5'} grid grid-cols-5 flex-1 `}>
 						<div className='col-span-5 md:col-span-3 xs:h-32 '>
 							<div className='text-lg text-gray-600 font-light py-3'>

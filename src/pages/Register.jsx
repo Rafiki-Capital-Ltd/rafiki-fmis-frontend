@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useApiAuth } from '../hooks';
 import { useState } from 'react';
 import { InputElement } from '../components';
 import { useNavigate } from 'react-router-dom';
-import { REGISTER_ROUTE } from '../api';
+import { register } from '../api';
 
 export function Register() {
 	const [firstName, setFirstName] = useState();
@@ -15,12 +14,11 @@ export function Register() {
 	const [password, setPassword] = useState();
 
 	const navigate = useNavigate();
-	const api = useApiAuth();
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await api.post(REGISTER_ROUTE, {
+			await register({
 				firstName,
 				lastName,
 				email,

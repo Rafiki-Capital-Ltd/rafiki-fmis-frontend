@@ -7,3 +7,4 @@ export * from './PieChart';
 export * from './TableComponent';
 export * from './Protected';
 export * from './PersistSession';
+export * from './PersistFarm';
