@@ -3,7 +3,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputElement, Navbar, TableComponent } from '../components';
 import { useApiAuth } from '../hooks';
 import { FARMS_ROUTE } from '../api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export function Farms() {
 	const [name, setName] = useState();
@@ -15,11 +15,12 @@ export function Farms() {
 
 	const navigate = useNavigate();
 	const api = useApiAuth();
+	const location = useLocation();
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await api.post(FARMS_ROUTE, {
+			await api.post(FARMS_ROUTE, {
 				name,
 				size,
 				county: { name: county },
@@ -33,20 +34,12 @@ export function Farms() {
 
 	useEffect(() => {
 		feather.replace();
-		getFarms();
-
+		(async () => {
+			const farms = (await api.get(FARMS_ROUTE)).data;
+			setFarms(farms.content);
+		})();
 		return () => false;
 	}, []);
-
-	const getFarms = async () => {
-		try {
-			const res = await api.get(FARMS_ROUTE);
-			setFarms(res.data.content);
-			console.log(Object.keys(farms[0]));
-		} catch (error) {
-			console.error(error);
-		}
-	};
 
 	const [visible, setVisible] = useState(false);
 
@@ -63,13 +56,21 @@ export function Farms() {
 
 	return (
 		<div className='w-full bg-gray-100 flex flex-col h-screen'>
-			<div className='bg-white w-full'>
-				<Navbar />
-			</div>
-			<div className='flex justify-between w-full px-10 py-5'>
-				<div className='flex py-2  text-gray-600 text-3xl font-semibold'>
-					My Farms
+			{location === '/farms' ? (
+				<div className='bg-white w-full'>
+					<Navbar />
 				</div>
+			) : null}
+
+			<div className='flex justify-between w-full px-10 py-5'>
+				{location === '/farms' ? (
+					<div className='flex py-2  text-gray-600 text-3xl font-semibold'>
+						My Farms
+					</div>
+				) : (
+					<div className='flex py-2  text-gray-600 text-2xl '>My Farms</div>
+				)}
+
 				<button
 					className='flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg'
 					onClick={() => setVisible(true)}

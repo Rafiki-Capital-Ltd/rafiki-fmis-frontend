@@ -61,53 +61,52 @@ export function TableComponent({ name, columns, data }) {
 	};
 
 	const header = renderHeader();
-    useEffect(() => {
-        console.log(data)
-    }, [data]);
+	useEffect(() => {
+		console.log(data);
+	}, [data]);
 
 	return (
-    <div className=" w-full ">
-      <div className="card bg-white m-5 p-5 rounded-md shadow-md text-md">
-        <DataTable
-          value={data}
-          paginator
-          header={header}
-          rows={10}
-          paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          rowsPerPageOptions={[10, 25, 50]}
-          dataKey="id"
-          showGridlines
-          selectionMode="checkbox"
-          selection={selectedItems}
-          onSelectionChange={(e) => setSelectedItems(e.value)}
-          filters={filters}
-          filterDisplay="menu"
-          globalFilterFields={[
-            "name",
-            "country.name",
-            "representative.name",
-            "balance",
-            "status",
-          ]}
-          emptyMessage={`No ${name} found.`}
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        >
-          <Column
-            selectionMode="multiple"
-            headerStyle={{ width: "2rem" }}
-          ></Column>
-          {columns.map((column) => (
-            <Column
-              field={column}
-              header={column.charAt(0).toUpperCase() + column.slice(1)}
-              sortable
-              filter
-              filterPlaceholder="Search by name"
-              style={{ minWidth: "6rem" }}
-            />
-          ))}
-        </DataTable>
-      </div>
-    </div>
-  );
+		<div className=' w-full '>
+			<div className='card bg-white m-5 p-5 rounded-md shadow-md '>
+				<DataTable
+					value={data}
+					paginator
+					header={header}
+					rows={10}
+					paginatorTemplate='FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown'
+					rowsPerPageOptions={[10, 25, 50]}
+					dataKey='id'
+					selectionMode='checkbox'
+					selection={selectedItems}
+					onSelectionChange={(e) => setSelectedItems(e.value)}
+					filters={filters}
+					filterDisplay='menu'
+					globalFilterFields={[
+						'name',
+						'country.name',
+						'representative.name',
+						'balance',
+						'status',
+					]}
+					emptyMessage={`No ${name} found.`}
+					currentPageReportTemplate='Showing {first} to {last} of {totalRecords} entries'
+				>
+					<Column
+						selectionMode='multiple'
+						headerStyle={{ width: '2rem' }}
+					></Column>
+					{columns.map((column) => (
+						<Column
+							field={column}
+							header={column.charAt(0).toUpperCase() + column.slice(1)}
+							sortable
+							filter
+							filterPlaceholder='Search by name'
+							style={{ minWidth: '6rem' }}
+						/>
+					))}
+				</DataTable>
+			</div>
+		</div>
+	);
 }
