@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { useApi } from '../hooks';
+import { useApiAuth } from '../hooks';
 import { useState } from 'react';
 import { InputElement } from '../components';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ export function Register() {
 	const [password, setPassword] = useState();
 
 	const navigate = useNavigate();
-	const api = useApi();
+	const api = useApiAuth();
 
 	const onSubmit = async (e) => {
 		e.preventDefault();

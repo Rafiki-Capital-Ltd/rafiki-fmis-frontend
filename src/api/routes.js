@@ -1,8 +1,10 @@
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 export const LOGIN_ROUTE = '/auth/login';
 export const LOGOUT_ROUTE = '/auth/logout';
 export const REGISTER_ROUTE = '/auth/register';
 export const PROFILE_ROUTE = '/auth/profile';
+export const REFRESH_TOKEN_ROUTE = '/auth/refresh';
 
 export const FARMS_ROUTE = '/farms';
 export const FARM_CONTEXT_ROUTE = FARMS_ROUTE + '/context';

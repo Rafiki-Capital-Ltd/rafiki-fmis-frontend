@@ -5,3 +5,5 @@ export * from './Navbar';
 export * from './Sidebar';
 export * from './PieChart';
 export * from './TableComponent';
+export * from './Protected';
+export * from './PersistSession';

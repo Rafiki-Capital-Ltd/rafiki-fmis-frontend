@@ -1,27 +1,30 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useApi, useApiAuth } from '../hooks';
-import { LOGIN_ROUTE } from '../api';
+import { useAuthContext } from '../hooks';
+import { login } from '../api';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export function Login() {
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
-
 	const navigate = useNavigate();
-	const api = useApi();
+	const location = useLocation();
+	const { setAuth } = useAuthContext();
+	const from = location.state?.from?.pathname || '/';
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		// try {
-		// 	const res = await api.post(LOGIN_ROUTE, { email, password });
-		// 	localStorage.setItem('accessToken', res.data.accessToken);
-		// 	navigate('/farms');
-		// } catch (err) {
-		// 	console.error(err);
-		// }
+		try {
+			const auth = await login({ email, password });
+			localStorage.setItem('accessToken', auth.accessToken);
+			setAuth(auth);
+			navigate(from, { replace: true });
+		} catch (err) {
+			console.error(err);
+		}
 	};
 
 	return (
