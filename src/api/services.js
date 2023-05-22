@@ -1,6 +1,7 @@
 import { api } from './api';
 import {
 	FARMS_ROUTE,
+	FARM_ASSETS_ROUTE,
 	LOGIN_ROUTE,
 	LOGOUT_ROUTE,
 	REFRESH_TOKEN_ROUTE,
@@ -39,5 +40,15 @@ export async function getFarm(farmId) {
 
 export async function createFarm(farmDetails) {
 	const res = await api.post(FARMS_ROUTE, farmDetails);
+	return res.data;
+}
+
+export async function getFarmAssets() {
+	const res = await api.get(FARM_ASSETS_ROUTE);
+	return res.data;
+}
+
+export async function createFarmAsset(farmAssetDetails) {
+	const res = await api.post(FARM_ASSETS_ROUTE, farmAssetDetails);
 	return res.data;
 }
