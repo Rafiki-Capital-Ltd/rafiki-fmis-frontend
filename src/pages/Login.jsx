@@ -10,7 +10,7 @@ export function Login() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { setAuth } = useAuthContext();
-	const from = location.state?.from?.pathname || '/';
+	const from = location.state?.from?.pathname || '/farms';
 
 	const onSubmit = async (e) => {
 		e.preventDefault();

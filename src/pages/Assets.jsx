@@ -3,6 +3,7 @@ import { Dialog } from 'primereact/dialog';
 import { InputElement, TableComponent } from '../components';
 import { createFarmAsset, getFarmAssets } from '../api';
 import { useRef } from 'react';
+import { useFarmContext } from '../hooks';
 
 export function Assets() {
 	const [type, setType] = useState();
@@ -12,11 +13,13 @@ export function Assets() {
 	const [assets, setAssets] = useState([]);
 	const [visible, setVisible] = useState(false);
 
+	const { farm } = useFarmContext();
+
 	const effectRun = useRef(false);
 	useEffect(() => {
 		if (!effectRun.current)
 			(async () => {
-				const _assets = await getFarmAssets();
+				const _assets = await getFarmAssets(farm.id);
 				setAssets(_assets.content);
 			})();
 		effectRun.current = true;
@@ -26,7 +29,13 @@ export function Assets() {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await createFarmAsset({ type, description, storageLocation, status });
+			await createFarmAsset({
+				type,
+				description,
+				storageLocation,
+				status,
+				farm,
+			});
 			setVisible(false);
 		} catch (error) {
 			console.error(error);

@@ -22,6 +22,7 @@ export function Dashboard() {
 	const [open, setOpen] = useState(false);
 	const [pieChartData, setPieChartData] = useState({});
 	const [barChartData, setBarChartData] = useState({});
+
 	const [counts, setCounts] = useState({
 		assets: 0,
 		production: 0,
@@ -29,12 +30,12 @@ export function Dashboard() {
 		consumption: 0,
 	});
 
-	const { farm } = useFarmContext();
 	const api = useApi();
+	const { farm } = useFarmContext();
 
 	const effectRun2 = useRef(false);
 	useEffect(() => {
-		if (!effectRun2.current) getCounts();
+		if (!effectRun2.current) getCounts(farm.id);
 		effectRun2.current = true;
 		return () => effectRun2.current;
 	}, [farm]);
@@ -75,32 +76,24 @@ export function Dashboard() {
 		feather.replace();
 	}, []);
 
-	const getFarm = async () => {
-		try {
-			const res = await api.get(FARM_CONTEXT_ROUTE);
-			setFarm(res.data);
-		} catch (error) {
-			console.error(error);
-			// navigate('/farms');
-		}
-	};
-
 	const getCounts = async (farmId) => {
 		try {
-			const assetsTotal = (await api.get(FARM_ASSETS_COUNT_ROUTE, { params: { farm: farmId } })).data;
+			const assetsTotal = (
+				await api.get(FARM_ASSETS_COUNT_ROUTE, { params: { farm: farmId } })
+			).data;
 			const productionTotal = (
-        await api.get(FARM_PRODUCTIONS_TOTAL_ROUTE, {
-          params: { farm: farmId },
-        })
-      ).data;
+				await api.get(FARM_PRODUCTIONS_TOTAL_ROUTE, {
+					params: { farm: farmId },
+				})
+			).data;
 			const salesTotal = (
-        await api.get(FARM_SALES_TOTAL_ROUTE, { params: { farm: farmId } })
-      ).data;
+				await api.get(FARM_SALES_TOTAL_ROUTE, { params: { farm: farmId } })
+			).data;
 			const consumptionTotal = (
-        await api.get(FARM_CONSUMPTIONS_TOTAL_ROUTE, {
-          params: { farm: farmId },
-        })
-      ).data;
+				await api.get(FARM_CONSUMPTIONS_TOTAL_ROUTE, {
+					params: { farm: farmId },
+				})
+			).data;
 			setCounts({
 				assets: assetsTotal,
 				production: productionTotal,

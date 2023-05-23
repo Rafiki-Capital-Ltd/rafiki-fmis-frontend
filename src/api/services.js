@@ -19,7 +19,9 @@ export async function login(loginCredentials) {
 }
 
 export async function getAccessToken() {
-	const res = await api.post(REFRESH_TOKEN_ROUTE, { refreshToken: localStorage.getItem('refreshToken') });
+	const res = await api.post(REFRESH_TOKEN_ROUTE, {
+		refreshToken: localStorage.getItem('refreshToken'),
+	});
 	return res.data;
 }
 
@@ -43,8 +45,8 @@ export async function createFarm(farmDetails) {
 	return res.data;
 }
 
-export async function getFarmAssets() {
-	const res = await api.get(FARM_ASSETS_ROUTE);
+export async function getFarmAssets(farmId) {
+	const res = await api.get(FARM_ASSETS_ROUTE, { params: { farm: farmId } });
 	return res.data;
 }
 

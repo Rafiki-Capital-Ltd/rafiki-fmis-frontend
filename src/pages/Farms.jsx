@@ -58,15 +58,13 @@ export function Farms() {
 
 	return (
 		<div className='w-full bg-gray-100 flex flex-col h-screen'>
-			{location === '/farms' ? (
-				<div className='bg-white w-full'>
-					<Navbar />
-				</div>
-			) : null}
+			<div className='bg-white w-full'>
+				<Navbar />
+			</div>
 
 			<div className='flex justify-between w-full px-10 py-5'>
 				{location === '/farms' ? (
-					<div className='flex py-2  text-gray-600 text-3xl font-semibold'>
+					<div className='flex py-2  text-gray-800 text-3xl font-semibold'>
 						My Farms
 					</div>
 				) : (

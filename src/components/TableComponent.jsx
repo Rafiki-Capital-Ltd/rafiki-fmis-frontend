@@ -3,6 +3,7 @@ import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 
 export function TableComponent({ name, columns, data }) {
 	const [selectedItems, setSelectedItems] = useState([]);
@@ -42,6 +43,14 @@ export function TableComponent({ name, columns, data }) {
 
 		setFilters(_filters);
 		setGlobalFilterValue(value);
+	};
+	const actionBodyTemplate = (rowData) => {
+		return (
+			<React.Fragment>
+				<Button icon='pi pi-pencil' rounded outlined className='mr-2' />
+				<Button icon='pi pi-trash' rounded outlined severity='danger' />
+			</React.Fragment>
+		);
 	};
 
 	const header = (() => {
@@ -101,6 +110,19 @@ export function TableComponent({ name, columns, data }) {
 							style={{ minWidth: '6rem' }}
 						/>
 					))}
+					<Column
+						field='Edit'
+						header='Edit'
+						filter
+						filterPlaceholder='Search by name'
+						style={{ minWidth: '6rem' }}
+					/>
+					<Column
+						header='Delete'
+						body={actionBodyTemplate}
+						exportable={false}
+						style={{ minWidth: '12rem' }}
+					></Column>
 				</DataTable>
 			</div>
 		</div>
