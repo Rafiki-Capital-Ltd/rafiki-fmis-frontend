@@ -9,7 +9,7 @@ import {
 	PieChart,
 	TableComponent,
 } from '../components';
-import { useApi } from '../hooks';
+import { useApi, useFarmContext } from '../hooks';
 import {
 	FARM_ASSETS_COUNT_ROUTE,
 	FARM_CONSUMPTIONS_TOTAL_ROUTE,
@@ -19,11 +19,9 @@ import {
 } from '../api';
 
 export function Dashboard() {
-	const [farm, setFarm] = useState({});
 	const [open, setOpen] = useState(false);
 	const [pieChartData, setPieChartData] = useState({});
 	const [barChartData, setBarChartData] = useState({});
-
 	const [counts, setCounts] = useState({
 		assets: 0,
 		production: 0,
@@ -31,15 +29,8 @@ export function Dashboard() {
 		consumption: 0,
 	});
 
-	const navigate = useNavigate();
+	const { farm } = useFarmContext();
 	const api = useApi();
-
-	const effectRun = useRef(false);
-	useEffect(() => {
-		if (!effectRun.current) getFarm();
-		effectRun.current = true;
-		return () => false;
-	}, []);
 
 	const effectRun2 = useRef(false);
 	useEffect(() => {
@@ -94,14 +85,22 @@ export function Dashboard() {
 		}
 	};
 
-	const getCounts = async () => {
+	const getCounts = async (farmId) => {
 		try {
-			const assetsTotal = (await api.get(FARM_ASSETS_COUNT_ROUTE)).data;
-			const productionTotal = (await api.get(FARM_PRODUCTIONS_TOTAL_ROUTE))
-				.data;
-			const salesTotal = (await api.get(FARM_SALES_TOTAL_ROUTE)).data;
-			const consumptionTotal = (await api.get(FARM_CONSUMPTIONS_TOTAL_ROUTE))
-				.data;
+			const assetsTotal = (await api.get(FARM_ASSETS_COUNT_ROUTE, { params: { farm: farmId } })).data;
+			const productionTotal = (
+        await api.get(FARM_PRODUCTIONS_TOTAL_ROUTE, {
+          params: { farm: farmId },
+        })
+      ).data;
+			const salesTotal = (
+        await api.get(FARM_SALES_TOTAL_ROUTE, { params: { farm: farmId } })
+      ).data;
+			const consumptionTotal = (
+        await api.get(FARM_CONSUMPTIONS_TOTAL_ROUTE, {
+          params: { farm: farmId },
+        })
+      ).data;
 			setCounts({
 				assets: assetsTotal,
 				production: productionTotal,

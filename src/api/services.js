@@ -19,7 +19,7 @@ export async function login(loginCredentials) {
 }
 
 export async function getAccessToken() {
-	const res = await api.post(REFRESH_TOKEN_ROUTE, {});
+	const res = await api.post(REFRESH_TOKEN_ROUTE, { refreshToken: localStorage.getItem('refreshToken') });
 	return res.data;
 }
 

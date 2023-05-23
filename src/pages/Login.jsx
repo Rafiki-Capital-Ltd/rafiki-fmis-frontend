@@ -17,6 +17,7 @@ export function Login() {
 		try {
 			const auth = await login({ email, password });
 			localStorage.setItem('accessToken', auth.accessToken);
+			localStorage.setItem('refreshToken', auth.refreshToken);
 			setAuth(auth);
 			navigate(from, { replace: true });
 		} catch (err) {
