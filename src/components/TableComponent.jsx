@@ -44,7 +44,7 @@ export function TableComponent({ name, columns, data }) {
 		setGlobalFilterValue(value);
 	};
 
-	const renderHeader = () => {
+	const header = (() => {
 		return (
 			<div className='flex justify-between flex-wrap gap-2 justify-content-between align-items-center'>
 				<h4 className='m-0 pt-3 '>{name}</h4>
@@ -58,12 +58,7 @@ export function TableComponent({ name, columns, data }) {
 				</span>
 			</div>
 		);
-	};
-
-	const header = renderHeader();
-	useEffect(() => {
-		console.log(data);
-	}, [data]);
+	})();
 
 	return (
 		<div className=' w-full '>
@@ -95,8 +90,9 @@ export function TableComponent({ name, columns, data }) {
 						selectionMode='multiple'
 						headerStyle={{ width: '2rem' }}
 					></Column>
-					{columns.map((column) => (
+					{columns.map((column, idx) => (
 						<Column
+							key={idx}
 							field={column}
 							header={column.charAt(0).toUpperCase() + column.slice(1)}
 							sortable

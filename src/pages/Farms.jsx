@@ -1,47 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Dialog } from 'primereact/dialog';
 import { InputElement, Navbar, TableComponent } from '../components';
-import { useApiAuth } from '../hooks';
-import { FARMS_ROUTE } from '../api';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { createFarm, getFarms } from '../api';
+import { useFarmContext } from '../hooks';
 
 export function Farms() {
 	const [name, setName] = useState();
 	const [size, setSize] = useState(0);
 	const [county, setCounty] = useState();
 	const [ward, setWard] = useState();
-
 	const [farms, setFarms] = useState([]);
+	const [visible, setVisible] = useState(false);
 
 	const navigate = useNavigate();
-	const api = useApiAuth();
 	const location = useLocation();
+	const { setFarm } = useFarmContext();
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			await api.post(FARMS_ROUTE, {
+			const farm = await createFarm({
 				name,
 				size,
 				county: { name: county },
 				ward: { name: ward },
 			});
-			navigate('/dashboard');
+			setFarm(farm);
+			navigate(`/dashboard/${farm.id}`);
 		} catch (error) {
 			console.error(error);
 		}
 	};
 
+	const effectRun = useRef(false);
 	useEffect(() => {
 		feather.replace();
-		(async () => {
-			const farms = (await api.get(FARMS_ROUTE)).data;
-			setFarms(farms.content);
-		})();
-		return () => false;
+		if (!effectRun.current)
+			(async () => {
+				const farms = await getFarms();
+				setFarms(farms.content);
+			})();
+		effectRun.current = true;
+		return () => effectRun.current;
 	}, []);
-
-	const [visible, setVisible] = useState(false);
 
 	const footerContent = (
 		<div>
