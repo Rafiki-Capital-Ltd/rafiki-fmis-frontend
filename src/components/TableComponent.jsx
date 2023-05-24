@@ -7,10 +7,17 @@ import { Button } from "primereact/button";
 import { GiCorn } from "react-icons/gi";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
+import { useNavigate } from "react-router-dom";
 
 
 export function TableComponent({ name, columns, data }) {
-  const [selectedItems, setSelectedItems] = useState([]);
+	const [selectedItems, setSelectedItems] = useState([]);
+	const navigate = useNavigate();
+	const [visible, setVisible] = useState(false);
+	const goToFarmDashboard = (rowData) => {
+			navigate(`/dashboard/${rowData.id}`);
+
+	}
 
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -77,11 +84,11 @@ export function TableComponent({ name, columns, data }) {
             reject
         }); }
 
-  const onGlobalFilterChange = (e) => {
-    const value = e.target.value;
-    let _filters = { ...filters };
+	const onGlobalFilterChange = (e) => {
+		const value = e.target.value;
+		let _filters = { ...filters };
 
-    _filters["global"].value = value;
+		_filters['global'].value = value;
 
     setFilters(_filters);
     setGlobalFilterValue(value);
@@ -107,7 +114,7 @@ export function TableComponent({ name, columns, data }) {
   const goToFarm = (rowData) => {
     return (
       <React.Fragment>
-        <button className="text-white bg-blue-500 text-md rounded-full shadow-md py-2 px-6">
+        <button className="text-white bg-green-500 text-md rounded-full shadow-md py-2 px-6" onClick={() => goToFarmDashboard(rowData)}>
           go to Farm
         </button>
       </React.Fragment>
@@ -172,6 +179,17 @@ export function TableComponent({ name, columns, data }) {
               style={{ minWidth: "6rem" }}
             />
           ))}
+		   {
+			name === 'Farms' ? (
+				          <Column
+            header="Edit"
+            body={goToFarm}
+            exportable={false}
+            style={{ minWidth: "6rem" }}
+          ></Column>
+			) : null
+		   }
+
           <Column
             header="Edit"
             body={editActionBodyTemplate}

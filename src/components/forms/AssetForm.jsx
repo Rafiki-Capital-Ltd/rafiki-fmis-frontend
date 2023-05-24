@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { InputElement } from '../InputElement';
 import { TextArea } from '../TextArea';
 
-export function AssetForm({ onSubmit }) {
-	const [type, setType] = useState();
-	const [description, setDescription] = useState();
-	const [storageLocation, setStorageLocation] = useState();
-	const [status, setStatus] = useState();
+export function AssetForm({ onSubmit, data }) {
+	const [type, setType] = useState(data?.type);
+	const [description, setDescription] = useState(data?.description);
+	const [storageLocation, setStorageLocation] = useState(data?.storageLocation);
+	const [status, setStatus] = useState(data?.status);
 
 	return (
 		<>
@@ -17,6 +17,7 @@ export function AssetForm({ onSubmit }) {
 						label='Type'
 						placeHolder='Type'
 						required={true}
+						value={type}
 						onChange={(e) => setType(e.target.value)}
 					/>
 				</div>
@@ -26,6 +27,7 @@ export function AssetForm({ onSubmit }) {
 						label='Description'
 						placeHolder='Asset Description...'
 						required={true}
+						value={description}
 						onChange={(e) => setDescription(e.target.value)}
 					/>
 				</div>
@@ -35,6 +37,7 @@ export function AssetForm({ onSubmit }) {
 						label='Storage Location'
 						placeHolder='Storage Location'
 						required={true}
+						value={storageLocation}
 						onChange={(e) => setStorageLocation(e.target.value)}
 					/>
 				</div>
@@ -44,6 +47,7 @@ export function AssetForm({ onSubmit }) {
 						label='Status'
 						placeHolder='Status'
 						required={true}
+						value={status}
 						onChange={(e) => setStatus(e.target.value)}
 					/>
 				</div>
