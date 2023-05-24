@@ -23,3 +23,5 @@ export const FARM_PRODUCTIONS_TOTAL_ROUTE = FARM_PRODUCTIONS_ROUTE + '/total';
 
 export const FARM_SALES_ROUTE = '/farm-sales';
 export const FARM_SALES_TOTAL_ROUTE = FARM_SALES_ROUTE + '/total';
+
+

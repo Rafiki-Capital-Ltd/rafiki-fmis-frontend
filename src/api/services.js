@@ -49,6 +49,7 @@ export async function logout() {
 export async function getFarms() {
 	try {
 		const res = await api.get(FARMS_ROUTE);
+		console.log(res);
 		return res?.data;
 	} catch (error) {
 		console.error(error);

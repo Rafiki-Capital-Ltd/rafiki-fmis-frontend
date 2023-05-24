@@ -36,6 +36,7 @@ export function TableComponent({ name, columns, data }) {
   });
   const [globalFilterValue, setGlobalFilterValue] = useState("");
 
+
   const onGlobalFilterChange = (e) => {
     const value = e.target.value;
     let _filters = { ...filters };
@@ -141,7 +142,7 @@ export function TableComponent({ name, columns, data }) {
             exportable={false}
             style={{ minWidth: "6rem" }}
           ></Column>
-		  
+
         </DataTable>
       </div>
     </div>
