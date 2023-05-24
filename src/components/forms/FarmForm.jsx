@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { InputElement } from '../InputElement';
 
-export function FarmForm({ onSubmit }) {
-	const [name, setName] = useState();
-	const [size, setSize] = useState(0);
-	const [county, setCounty] = useState();
-	const [ward, setWard] = useState();
+export function FarmForm({ onSubmit, data }) {
+	const [name, setName] = useState(data?.name);
+	const [size, setSize] = useState(data?.size || 0);
+	const [county, setCounty] = useState(data?.county);
+	const [ward, setWard] = useState(data?.ward);
 
 	return (
 		<>
@@ -16,6 +16,7 @@ export function FarmForm({ onSubmit }) {
 						label='Farm Name'
 						placeHolder='Farm Name'
 						required={true}
+						value={name}
 						onChange={(e) => setName(e.target.value)}
 					/>
 				</div>
@@ -26,6 +27,7 @@ export function FarmForm({ onSubmit }) {
 						label='Size '
 						placeHolder='size in Acerage'
 						required={true}
+						value={size}
 						onChange={(e) => setSize(e.target.value)}
 					/>
 				</div>
@@ -35,6 +37,7 @@ export function FarmForm({ onSubmit }) {
 						label='County'
 						placeHolder='County'
 						required={true}
+						value={county}
 						onChange={(e) => setCounty(e.target.value)}
 					/>
 				</div>
@@ -44,6 +47,7 @@ export function FarmForm({ onSubmit }) {
 						label='Ward'
 						placeHolder='Ward'
 						required={true}
+						value={ward}
 						onChange={(e) => setWard(e.target.value)}
 					/>
 				</div>

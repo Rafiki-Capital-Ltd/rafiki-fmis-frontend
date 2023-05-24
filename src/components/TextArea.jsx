@@ -1,4 +1,4 @@
-export function TextArea({ label, placeHolder, onChange, required }) {
+export function TextArea({ label, placeHolder, onChange, required, value }) {
 	return (
 		<div className='mb-3'>
 			<label className='block mb-1 text-sm font-semibold  text-gray-600'>
@@ -9,6 +9,7 @@ export function TextArea({ label, placeHolder, onChange, required }) {
 				required={required}
 				placeholder={placeHolder}
 				onChange={onChange}
+				value={value}
 			></textarea>
 		</div>
 	);
