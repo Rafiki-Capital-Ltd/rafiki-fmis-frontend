@@ -89,7 +89,7 @@ export function TableComponent({ name, columns, data }) {
   const deleteActionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <button className="text-white bg-red-500 text-md rounded-full shadow-md py-2 px-6">
+        <button className="text-white bg-red-500 text-md rounded-full shadow-md py-2 px-6" onClick={confirm2}>
           Delete
         </button>
       </React.Fragment>
@@ -98,7 +98,7 @@ export function TableComponent({ name, columns, data }) {
   const editActionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <button className="text-white bg-blue-500 text-md rounded-full shadow-md py-2 px-6">
+        <button className="text-white bg-blue-500 text-md rounded-full shadow-md py-2 px-6" onClick={confirm1}>
           Edit
         </button>
       </React.Fragment>
