@@ -2,48 +2,49 @@ import { useState } from 'react';
 import { InputElement } from '../InputElement';
 import { TextArea } from '../TextArea';
 
-export function CropForm({ onSubmit, data }) {
-	const [type, setType] = useState(data?.type);
-	const [description, setDescription] = useState(data?.description);
+export function ProductionForm({ onSubmit, data }) {
+	const [date, setDate] = useState(data?.date);
 	const [quantity, setQuantity] = useState(data?.quantity);
+	const [description, setDescription] = useState(data?.description);
 
 	return (
 		<>
 			<div className='grid grid-cols-6'>
-				<div className='col-span-6 p-5'>
+				<div className='col-span-3 p-5'>
 					<InputElement
-						type='text'
-						label='Type'
-						placeHolder='Type of crop..'
+						type='date'
+						label='Date'
+						placeHolder='Date'
 						required={true}
-						value={type}
-						onChange={(e) => setType(e.target.value)}
+						value={date}
+						onChange={(e) => setDate(e.target.value)}
+					/>
+				</div>
+
+				<div className='col-span-3 p-5'>
+					<InputElement
+						type='number'
+						label='Quantity (Kgs)'
+						placeHolder='Quantity (Kgs)'
+						required={true}
+						value={quantity}
+						onChange={(e) => setQuantity(e.target.value)}
 					/>
 				</div>
 
 				<div className='col-span-6 p-5'>
 					<TextArea
 						label='Description'
-						placeHolder='Crop description...'
+						placeHolder='Production description...'
 						required={true}
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
 					/>
 				</div>
-				<div className='col-span-6 p-5'>
-					<InputElement
-						type='number'
-						label='Quantity (Acres)'
-						placeHolder='Quantity'
-						required={true}
-						value={quantity}
-						onChange={(e) => setQuantity(e.target.value)}
-					/>
-				</div>
 			</div>
 			<div className='text-right'>
 				<button
-					onClick={() => onSubmit({ type, description, quantity })}
+					onClick={() => onSubmit({ date, description, quantity })}
 					className='bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md'
 				>
 					<p className='flex items-center'>Submit</p>
