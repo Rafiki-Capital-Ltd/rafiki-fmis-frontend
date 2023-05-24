@@ -182,7 +182,7 @@ export function TableComponent({ name, columns, data }) {
 		   {
 			name === 'Farms' ? (
 				          <Column
-            header="Edit"
+            header="goToFarm"
             body={goToFarm}
             exportable={false}
             style={{ minWidth: "6rem" }}
