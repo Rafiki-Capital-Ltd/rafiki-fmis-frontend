@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { GiCorn, GiCow, GiFarmTractor } from 'react-icons/gi';
-import { FiFileText, FiLayers } from 'react-icons/fi';
+import { FiChevronLeft, FiFileText, FiLayers } from 'react-icons/fi';
 import { RiPlantLine } from 'react-icons/ri';
 import { BsCartCheck, BsGraphUpArrow } from 'react-icons/bs';
 import { MdPointOfSale } from 'react-icons/md';
@@ -51,7 +51,7 @@ export function Sidebar() {
 						className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
            border-2 rounded-full bg-white ${!open && 'rotate-180'}`}
 					>
-						<i data-feather='chevron-left'> </i>
+						<FiChevronLeft/>
 					</span>
 
 					<div className='flex items-center justify-center gap-x-2 font-semibold pb-5 pt-5'>

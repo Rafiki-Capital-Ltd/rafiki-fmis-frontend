@@ -46,11 +46,15 @@ export function TableComponent({ name, columns, data }) {
 	};
 	const actionBodyTemplate = (rowData) => {
 		return (
-			<React.Fragment>
-				<Button icon='pi pi-pencil' rounded outlined className='mr-2' />
-				<Button icon='pi pi-trash' rounded outlined severity='danger' />
-			</React.Fragment>
-		);
+      <React.Fragment>
+        <button className="text-red-600 rounded-full shadow-md py-2 px-4">
+          Delete{" "}
+        </button>
+        <button className="text-blue-600 rounded-full shadow-md py-2 px-4">
+         Edit
+        </button>
+      </React.Fragment>
+    );
 	};
 
 	const header = (() => {
