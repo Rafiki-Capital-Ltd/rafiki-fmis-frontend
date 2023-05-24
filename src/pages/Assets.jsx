@@ -7,7 +7,7 @@ import {
 	updateFarmAsset,
 } from '../api';
 
-import { useFarmContext } from '../hooks';
+import { useAuthContext, useFarmContext } from '../hooks';
 
 export function Assets() {
 	const [assets, setAssets] = useState([]);
@@ -15,6 +15,7 @@ export function Assets() {
 	const [isEdit, setIsEdit] = useState(false);
 	const [asset, setAsset] = useState();
 	const { farm } = useFarmContext();
+	const { auth } = useAuthContext();
 
 	const effectRun = useRef(false);
 	useEffect(() => {
@@ -28,7 +29,12 @@ export function Assets() {
 	}, [asset]);
 
 	const onSubmit = async (data) => {
-		if (!isEdit) await createFarmAsset({ ...data, farm: { id: farm.id } });
+		if (!isEdit)
+			await createFarmAsset({
+				...data,
+				farm: { id: farm.id },
+				owner: { id: auth.id },
+			});
 		else await updateFarmAsset(asset.id, data);
 		setVisible(false);
 	};
@@ -42,9 +48,6 @@ export function Assets() {
 	const onDelete = async (data) => {
 		setAsset(data);
 		await deleteFarmAsset(data);
-		setAssets((prevState) =>
-			assets.filter((asset) => asset.id !== prevState.id)
-		);
 	};
 
 	return (

@@ -1,6 +1,7 @@
 import { api } from './api';
 import {
 	FARMS_ROUTE,
+	FARM_ANIMALS_ROUTE,
 	FARM_ASSETS_ROUTE,
 	LOGIN_ROUTE,
 	LOGOUT_ROUTE,
@@ -122,6 +123,42 @@ export async function updateFarmAsset(assetId, farmAsset) {
 export async function deleteFarmAsset(farmAsset) {
 	try {
 		const res = await api.delete(`${FARM_ASSETS_ROUTE}/${farmAsset.id}`);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function getFarmAnimals(farmId) {
+	try {
+		const res = await api.get(FARM_ANIMALS_ROUTE, { params: { farm: farmId } });
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function createFarmAnimal(farmAnimalDetails) {
+	try {
+		const res = await api.post(FARM_ANIMALS_ROUTE, farmAnimalDetails);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function updateFarmAnimal(animalId, farmAnimal) {
+	try {
+		const res = await api.put(`${FARM_ANIMALS_ROUTE}/${animalId}`, farmAnimal);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function deleteFarmAnimal(farmAnimal) {
+	try {
+		const res = await api.delete(`${FARM_ANIMALS_ROUTE}/${farmAnimal.id}`);
 		return res?.data;
 	} catch (error) {
 		console.error(error);
