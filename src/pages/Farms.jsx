@@ -1,31 +1,19 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Dialog } from 'primereact/dialog';
-import { InputElement, Navbar, TableComponent } from '../components';
+import { FarmForm, Modal, Navbar, TableComponent } from '../components';
 import { createFarm, getFarms } from '../api';
 import { useFarmContext } from '../hooks';
 
 export function Farms() {
-	const [name, setName] = useState();
-	const [size, setSize] = useState(0);
-	const [county, setCounty] = useState();
-	const [ward, setWard] = useState();
 	const [farms, setFarms] = useState([]);
 	const [visible, setVisible] = useState(false);
-
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { setFarm } = useFarmContext();
 
-	const onSubmit = async (e) => {
-		e.preventDefault();
+	const onSubmit = async (data) => {
 		try {
-			const farm = await createFarm({
-				name,
-				size,
-				county: { name: county },
-				ward: { name: ward },
-			});
+			const farm = await createFarm(data);
 			setFarm(farm);
 			navigate(`/dashboard/${farm.id}`);
 		} catch (error) {
@@ -35,7 +23,7 @@ export function Farms() {
 
 	const effectRun = useRef(false);
 	useEffect(() => {
-		feather.replace();
+		feather?.replace();
 		if (!effectRun.current)
 			(async () => {
 				const farms = await getFarms();
@@ -44,17 +32,6 @@ export function Farms() {
 		effectRun.current = true;
 		return () => effectRun.current;
 	}, []);
-
-	const footerContent = (
-		<div>
-			<button
-				onClick={onSubmit}
-				className='bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md'
-			>
-				<p className='flex items-center'> Create</p>
-			</button>
-		</div>
-	);
 
 	return (
 		<div className='w-full bg-gray-100 flex flex-col h-screen'>
@@ -84,53 +61,9 @@ export function Farms() {
 				columns={['name', 'size', 'county', 'ward', 'Preview']}
 				data={farms}
 			/>
-			<Dialog
-				header='Add New Farm'
-				visible={visible}
-				style={{ width: '50vw' }}
-				onHide={() => setVisible(false)}
-				footer={footerContent}
-			>
-				<div className='grid grid-cols-6'>
-					<div className='col-span-3 p-5'>
-						<InputElement
-							type='text'
-							label='Farm Name'
-							placeHolder='Farm Name'
-							required={true}
-							onChange={(e) => setName(e.target.value)}
-						/>
-					</div>
-
-					<div className='col-span-3 p-5'>
-						<InputElement
-							type='number'
-							label='Size '
-							placeHolder='size in Acerage'
-							required={true}
-							onChange={(e) => setSize(e.target.value)}
-						/>
-					</div>
-					<div className='col-span-3 p-5'>
-						<InputElement
-							type='text'
-							label='County'
-							placeHolder='County'
-							required={true}
-							onChange={(e) => setCounty(e.target.value)}
-						/>
-					</div>
-					<div className='col-span-3 p-5'>
-						<InputElement
-							type='text'
-							label='Ward'
-							placeHolder='Ward'
-							required={true}
-							onChange={(e) => setWard(e.target.value)}
-						/>
-					</div>
-				</div>
-			</Dialog>
+			<Modal visible={visible} setVisible={setVisible}>
+				<FarmForm onSubmit={onSubmit} />
+			</Modal>
 		</div>
 	);
 }

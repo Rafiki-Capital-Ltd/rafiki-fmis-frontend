@@ -4,6 +4,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { GiCorn } from 'react-icons/gi';
 
 export function TableComponent({ name, columns, data }) {
 	const [selectedItems, setSelectedItems] = useState([]);
@@ -47,7 +48,10 @@ export function TableComponent({ name, columns, data }) {
 	const actionBodyTemplate = (rowData) => {
 		return (
 			<React.Fragment>
-				<Button icon='pi pi-pencil' rounded outlined className='mr-2' />
+				<button className='text-dark'>
+					{' '}
+					<GiCorn />{' '}
+				</button>
 				<Button icon='pi pi-trash' rounded outlined severity='danger' />
 			</React.Fragment>
 		);

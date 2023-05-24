@@ -8,3 +8,6 @@ export * from './TableComponent';
 export * from './Protected';
 export * from './PersistSession';
 export * from './PersistFarm';
+export * from './Modal';
+export * from './TextArea';
+export * from './forms';

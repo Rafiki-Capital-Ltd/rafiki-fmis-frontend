@@ -18,9 +18,9 @@ export function PersistFarm() {
 		const verifyFarm = async () => {
 			try {
 				const farm = await getFarm(farmId);
+				if (!farm) navaigate('/farms');
 				setFarm(farm);
 			} catch (err) {
-				console.error(err);
 				navaigate('/farms');
 			} finally {
 				isMounted && setIsLoading(false);
