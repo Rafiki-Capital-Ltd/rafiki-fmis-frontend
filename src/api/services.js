@@ -3,6 +3,7 @@ import {
 	FARMS_ROUTE,
 	FARM_ANIMALS_ROUTE,
 	FARM_ASSETS_ROUTE,
+	FARM_CROPS_ROUTE,
 	LOGIN_ROUTE,
 	LOGOUT_ROUTE,
 	REFRESH_TOKEN_ROUTE,
@@ -159,6 +160,42 @@ export async function updateFarmAnimal(animalId, farmAnimal) {
 export async function deleteFarmAnimal(farmAnimal) {
 	try {
 		const res = await api.delete(`${FARM_ANIMALS_ROUTE}/${farmAnimal.id}`);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function getFarmCrops(farmId) {
+	try {
+		const res = await api.get(FARM_CROPS_ROUTE, { params: { farm: farmId } });
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function createFarmCrop(farmCropDetails) {
+	try {
+		const res = await api.post(FARM_CROPS_ROUTE, farmCropDetails);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function updateFarmCrop(cropId, farmCrop) {
+	try {
+		const res = await api.put(`${FARM_CROPS_ROUTE}/${cropId}`, farmCrop);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function deleteFarmCrop(farmCrop) {
+	try {
+		const res = await api.delete(`${FARM_CROPS_ROUTE}/${farmCrop.id}`);
 		return res?.data;
 	} catch (error) {
 		console.error(error);
