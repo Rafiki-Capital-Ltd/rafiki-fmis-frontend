@@ -91,3 +91,21 @@ export async function createFarmAsset(farmAssetDetails) {
 		console.error(error);
 	}
 }
+
+export async function updateFarmAsset(assetId, farmAsset) {
+	try {
+		const res = await api.put(`${FARM_ASSETS_ROUTE}/${assetId}`, farmAsset);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function deleteFarmAsset(farmAsset) {
+	try {
+		const res = await api.delete(`${FARM_ASSETS_ROUTE}/${farmAsset.id}`);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
