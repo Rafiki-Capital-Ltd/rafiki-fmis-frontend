@@ -58,7 +58,7 @@ export function Farms() {
 			</div>
 			<TableComponent
 				name={'Farms'}
-				columns={['name', 'size', 'county', 'ward' , ]}
+				columns={['name', 'size', 'county', 'ward'  ]}
 				data={farms}
 			/>
 			<Modal visible={visible} setVisible={setVisible}>
@@ -67,4 +67,3 @@ export function Farms() {
 		</div>
 	);
 }
-	
