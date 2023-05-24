@@ -1,91 +1,76 @@
-import { useEffect, useState } from "react";
-import { Dialog } from "primereact/dialog";
-import { InputElement, TableComponent } from "../components";
+import { useEffect, useState, useRef } from 'react';
+import { ConsumptionForm, Modal, TableComponent } from '../components';
+import { useAuthContext, useFarmContext } from '../hooks';
+import {
+	createFarmConsumption,
+	deleteFarmConsumption,
+	getFarmConsumptions,
+	updateFarmConsumption,
+} from '../api';
 
 export function Consumption() {
-  useEffect(() => {
-    feather.replace();
-  });
-  const [value, setValue] = useState();
+	const [consumptions, setConsumptions] = useState([]);
+	const [consumption, setConsumption] = useState();
+	const [isEdit, setIsEdit] = useState(false);
+	const [visible, setVisible] = useState(false);
+	const { farm } = useFarmContext();
+	const { auth } = useAuthContext();
 
-  const [visible, setVisible] = useState(false);
-  const footerContent = (
-    <div>
-      <button className="bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md">
-        <p className="flex items-center"> Create</p>
-      </button>
-    </div>
-  );
+	const effectRun = useRef(false);
+	useEffect(() => {
+		if (!effectRun.current)
+			(async () => {
+				const _consumptions = await getFarmConsumptions(farm.id);
+				setConsumptions(_consumptions.content);
+			})();
+		effectRun.current = true;
+		return () => effectRun.current;
+	}, [consumption]);
 
-  return (
-    <div className="w-full bg-gray-100 flex flex-col h-screen">
-      <div className="flex justify-between w-full px-10 py-5">
-        <div className="flex py-2  text-gray-600 text-2xl"> Consumption </div>
-        <button
-          className="flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg"
-          onClick={() => setVisible(true)}
-        >
-          <i data-feather="plus" className=""></i>{" "}
-          <p className="pl-1 pr-2"> Add New </p>
-        </button>
-      </div>{" "}
-      <TableComponent
-        name={"Consumption"}
-        columns={[
-          "name",
-          "size",
-          "county",
-          "ward",
-          "Preview",
-        ]}
-      />
-      <Dialog
-        header="Add New "
-        visible={visible}
-        style={{ width: "50vw" }}
-        onHide={() => setVisible(false)}
-        footer={footerContent}
-      >
-        <div className="grid grid-cols-6">
-          <div className="col-span-3 p-5">
-            <InputElement
-              type="text"
-              label="Farm Title"
-              placeHolder="Farm Title"
-              required={true}
-              onChange={(e) => setFarmTitle(e.target.value)}
-            />
-          </div>
+	const onSubmit = async (data) => {
+		if (!isEdit)
+			await createFarmConsumption({
+				...data,
+				farm: { id: farm.id },
+				owner: { id: auth.id },
+			});
+		else await updateFarmConsumption(consumption.id, data);
+		setVisible(false);
+	};
 
-          <div className="col-span-3 p-5">
-            <InputElement
-              type="text"
-              label="Size "
-              placeHolder="size in Acerage"
-              required={true}
-              onChange={(e) => setSize(e.target.value)}
-            />
-          </div>
-          <div className="col-span-3 p-5">
-            <InputElement
-              type="text"
-              label="County"
-              placeHolder="county of origin "
-              required={true}
-              onChange={(e) => setFarmTitle(e.target.value)}
-            />
-          </div>
-          <div className="col-span-3 p-5">
-            <InputElement
-              type="text"
-              label="Ward"
-              placeHolder="ward"
-              required={true}
-              onChange={(e) => setFarmTitle(e.target.value)}
-            />
-          </div>
-        </div>
-      </Dialog>
-    </div>
-  );
+	const onEdit = async (data) => {
+		setConsumption(data);
+		setIsEdit(true);
+		setVisible(true);
+	};
+
+	const onDelete = async (data) => {
+		setConsumption(data);
+		await deleteFarmConsumption(data);
+	};
+
+	return (
+		<div className='w-full bg-gray-100 flex flex-col h-screen'>
+			<div className='flex justify-between w-full px-10 py-5'>
+				<div className='flex py-2  text-gray-600 text-2xl'> Consumptions </div>
+				<button
+					className='flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg'
+					onClick={() => setVisible(true)}
+				>
+					<i data-feather='plus' className=''></i>{' '}
+					<p className='pl-1 pr-2'>Add New Asset</p>
+				</button>
+			</div>{' '}
+			<TableComponent
+				name={'Consumptions'}
+				columns={['date', 'description', 'quantity']}
+				data={consumptions}
+				onEdit={onEdit}
+				onDelete={onDelete}
+			/>
+			<Modal visible={visible} setVisible={setVisible}>
+				<ConsumptionForm onSubmit={onSubmit} data={consumption} />
+			</Modal>
+		</div>
+	);
 }

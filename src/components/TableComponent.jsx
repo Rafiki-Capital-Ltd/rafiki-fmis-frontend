@@ -1,18 +1,15 @@
-import React, { useEffect, useState  , useRef} from "react";
-import { FilterMatchMode, FilterOperator } from "primereact/api";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { InputText } from "primereact/inputtext";
-import { Button } from "primereact/button";
-import { GiCorn } from "react-icons/gi";
-import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
-import { Toast } from "primereact/toast";
-import { useNavigate } from "react-router-dom";
-import { FarmForm, Modal } from "../components";
-import { useFarmContext } from "../hooks";
+import React, { useState, useRef } from 'react';
+import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
+import { useNavigate } from 'react-router-dom';
+import { useFarmContext } from '../hooks';
+import { useEffect } from 'react';
 
-
-export function TableComponent({ name, columns, data }) {
+export function TableComponent({ name, columns, data, onEdit, onDelete }) {
 	const [selectedItems, setSelectedItems] = useState([]);
 	const[editModal , setEditModal ] = useState(false)
 	const [currentRowData , setCurrentRowData] = useState({})
@@ -54,6 +51,8 @@ export function TableComponent({ name, columns, data }) {
         }); }
 	const { setFarm } = useFarmContext	();
 
+	useEffect(() => {}, [name, columns, data, onEdit, onDelete]);
+
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 		name: {
@@ -82,45 +81,6 @@ export function TableComponent({ name, columns, data }) {
 	const [globalFilterValue, setGlobalFilterValue] = useState('');
 	const toast = useRef(null);
 
-	const accept = () => {
-		toast.current.show({
-			severity: 'info',
-			summary: 'Confirmed',
-			detail: '',
-			life: 3000,
-		});
-	};
-
-	const reject = () => {
-		toast.current.show({
-			severity: 'warn',
-			summary: 'Rejected',
-			detail: 'You have rejected',
-			life: 3000,
-		});
-	};
-
-	const onEdit = () => {
-		confirmDialog({
-			message: 'Are you sure you want to proceed?',
-			header: 'Confirmation',
-			icon: 'pi pi-exclamation-triangle',
-			accept,
-			reject,
-		});
-	};
-
-	const onDelete = () => {
-		confirmDialog({
-			message: 'Do you want to delete this record?',
-			header: 'Delete Confirmation',
-			icon: 'pi pi-info-circle',
-			acceptClassName: 'p-button-danger',
-			accept,
-			reject,
-		});
-	};
-
 	const onGlobalFilterChange = (e) => {
 		const value = e.target.value;
 		let _filters = { ...filters };
@@ -135,7 +95,7 @@ export function TableComponent({ name, columns, data }) {
 		return (
 			<button
 				className='text-white bg-red-500 text-md rounded-full shadow-md py-2 px-6'
-				onClick={onDelete}
+				onClick={() => onDelete(rowData)}
 			>
 				Delete
 			</button>
@@ -146,7 +106,7 @@ export function TableComponent({ name, columns, data }) {
 		return (
 			<button
 				className='text-white bg-blue-500 text-md rounded-full shadow-md py-2 px-6'
-				onClick={edit(rowData)}
+				onClick={() => onEdit(rowData)}
 			>
 				Edit
 			</button>

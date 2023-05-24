@@ -57,7 +57,7 @@ export function FarmForm({ onSubmit, data }) {
 					onClick={() => onSubmit({ name, size, county, ward })}
 					className='bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md'
 				>
-					<p className='flex items-center'> Create</p>
+					<p className='flex items-center'>Submit</p>
 				</button>
 			</div>
 		</>
