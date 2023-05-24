@@ -70,16 +70,16 @@ export function Sidebar() {
 					<ul className='pt-6'>
 						{Menus.map((Menu, index) => (
 							<NavLink
+								key={index}
 								to={
 									Menu.title === 'Dashboard'
-										? `/dashboard/${farm.id}`
+										? `/dashboard/${farm?.id}`
 										: Menu.title === 'Farms'
 										? '/farms'
-										: `/dashboard/${farm.id}/${Menu.title.toLowerCase()}`
+										: `/dashboard/${farm?.id}/${Menu.title.toLowerCase()}`
 								}
 							>
 								<li
-									key={index}
 									className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-100 text-sm items-center gap-x-4 
               ${Menu.gap ? 'mt-9' : 'mt-2'} ${
 										location.pathname ===

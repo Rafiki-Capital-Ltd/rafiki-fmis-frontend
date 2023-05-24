@@ -4,6 +4,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { GiCorn } from 'react-icons/gi';
 
 export function TableComponent({ name, columns, data }) {
 	const [selectedItems, setSelectedItems] = useState([]);

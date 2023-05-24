@@ -6,9 +6,11 @@ export function useRefreshToken() {
 
 	return async () => {
 		const res = await getAccessToken();
-		const accessToken = res.accessToken;
-		localStorage.setItem('accessToken', accessToken);
-		setAuth(res.user);
-		return res.accessToken;
+		if (res) {
+			const accessToken = res.accessToken;
+			localStorage.setItem('accessToken', accessToken);
+			setAuth(res.user);
+			return res.accessToken;
+		}
 	};
 }
