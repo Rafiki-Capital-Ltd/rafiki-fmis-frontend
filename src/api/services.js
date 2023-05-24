@@ -5,6 +5,7 @@ import {
 	FARM_ASSETS_ROUTE,
 	FARM_CONSUMPTIONS_ROUTE,
 	FARM_PRODUCTIONS_ROUTE,
+	FARM_SALES_ROUTE,
 	FARM_CROPS_ROUTE,
 	LOGIN_ROUTE,
 	LOGOUT_ROUTE,
@@ -298,6 +299,46 @@ export async function deleteFarmProduction(farmProduction) {
 		const res = await api.delete(
 			`${FARM_PRODUCTIONS_ROUTE}/${farmProduction.id}`
 		);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+// FARM SALES
+
+export async function getFarmSales(farmId) {
+	try {
+		const res = await api.get(FARM_SALES_ROUTE, {
+			params: { farm: farmId },
+		});
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function createFarmSale(farmSaleDetails) {
+	try {
+		const res = await api.post(FARM_SALES_ROUTE, farmSaleDetails);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function updateFarmSale(consumptionId, farmSale) {
+	try {
+		const res = await api.put(`${FARM_SALES_ROUTE}/${consumptionId}`, farmSale);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function deleteFarmSale(farmSale) {
+	try {
+		const res = await api.delete(`${FARM_SALES_ROUTE}/${farmSale.id}`);
 		return res?.data;
 	} catch (error) {
 		console.error(error);

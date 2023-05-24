@@ -4,3 +4,4 @@ export * from './ConsumptionForm';
 export * from './CropForm';
 export * from './FarmForm';
 export * from './ProductionForm';
+export * from './SaleForm';
