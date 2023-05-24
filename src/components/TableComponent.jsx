@@ -8,16 +8,26 @@ import { GiCorn } from "react-icons/gi";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
 import { useNavigate } from "react-router-dom";
+import { FarmForm, Modal } from "../components";
 
 
 export function TableComponent({ name, columns, data }) {
 	const [selectedItems, setSelectedItems] = useState([]);
+	const[editModal , setEditModal ] = useState(false)
+	const [currentRowData , setCurrentRowData] = useState({})
 	const navigate = useNavigate();
 	const [visible, setVisible] = useState(false);
 	const goToFarmDashboard = (rowData) => {
 			navigate(`/dashboard/${rowData.id}`);
-
 	}
+
+	const edit = (data) => {
+		setEditModal(true)
+
+			
+		// currentRowData(rowData)
+	}
+
 
   const [filters, setFilters] = useState({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -105,7 +115,7 @@ export function TableComponent({ name, columns, data }) {
   const editActionBodyTemplate = (rowData) => {
     return (
       <React.Fragment>
-        <button className="text-white bg-blue-500 text-md rounded-full shadow-md py-2 px-6" onClick={confirm1}>
+        <button className="text-white bg-blue-500 text-md rounded-full shadow-md py-2 px-6" onClick={() => edit(rowData)}>
           Edit
         </button>
       </React.Fragment>
@@ -140,6 +150,9 @@ export function TableComponent({ name, columns, data }) {
     <div className=" w-full ">
       <Toast ref={toast} />
       <ConfirmDialog />
+      <Modal visible={editModal} setVisible={setEditModal}>
+        <FarmForm onSubmit={onSubmit} />
+      </Modal>
       <div className="card bg-white m-5 p-5 rounded-md shadow-md ">
         <DataTable
           value={data}
@@ -149,7 +162,7 @@ export function TableComponent({ name, columns, data }) {
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
           rowsPerPageOptions={[10, 25, 50]}
           dataKey="id"
-		  showGridlines
+          showGridlines
           selectionMode="checkbox"
           selection={selectedItems}
           onSelectionChange={(e) => setSelectedItems(e.value)}
@@ -180,16 +193,14 @@ export function TableComponent({ name, columns, data }) {
               style={{ minWidth: "6rem" }}
             />
           ))}
-		   {
-			name === 'Farms' ? (
-				          <Column
-            header="goToFarm"
-            body={goToFarm}
-            exportable={false}
-            style={{ minWidth: "6rem" }}
-          ></Column>
-			) : null
-		   }
+          {name === "Farms" ? (
+            <Column
+              header="goToFarm"
+              body={goToFarm}
+              exportable={false}
+              style={{ minWidth: "6rem" }}
+            ></Column>
+          ) : null}
 
           <Column
             header="Edit"
