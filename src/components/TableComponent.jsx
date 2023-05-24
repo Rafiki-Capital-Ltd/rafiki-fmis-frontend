@@ -8,6 +8,7 @@ import { Toast } from 'primereact/toast';
 import { useNavigate } from 'react-router-dom';
 import { useFarmContext } from '../hooks';
 import { useEffect } from 'react';
+import { Modal} from './Modal';
 
 export function TableComponent({ name, columns, data, onEdit, onDelete }) {
 	const [selectedItems, setSelectedItems] = useState([]);
@@ -143,15 +144,16 @@ export function TableComponent({ name, columns, data, onEdit, onDelete }) {
     <div className=" w-full ">
       <Toast ref={toast} />
       <ConfirmDialog />
-      <Modal visible={editModal} setVisible={setEditModal}>
+      {/* <Modal visible={editModal} setVisible={setEditModal}>
         <FarmForm onSubmit={onSubmit} />
-      </Modal>
+      </Modal> */}
       <div className="card bg-white m-5 p-5 rounded-md shadow-md ">
         <DataTable
           value={data}
           paginator
           header={header}
           rows={10}
+		  showGridlines
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
           rowsPerPageOptions={[10, 25, 50]}
           dataKey="id"

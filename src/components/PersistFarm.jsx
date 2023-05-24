@@ -4,6 +4,7 @@ import { useFarmContext } from '../hooks';
 import { useParams } from 'react-router-dom';
 import { getFarm } from '../api';
 import { useNavigate } from 'react-router-dom';
+import { ProgressSpinner } from "primereact/progressspinner";
 
 export function PersistFarm() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -32,5 +33,20 @@ export function PersistFarm() {
 		return () => (isMounted = false);
 	}, [farmId, getFarm]);
 
-	return <>{isLoading ? <p>Loading...</p> : <Outlet />}</>;
+	return (
+    <>
+      {isLoading ? (
+        <div className="flex items-center justify-center h-screen w-screen">
+          <ProgressSpinner
+            style={{ width: "60px", height: "50px" }}
+            strokeWidth="4"
+            fill="var(--surface-ground)"
+            animationDuration=".5s"
+          />
+        </div>
+      ) : (
+        <Outlet />
+      )}
+    </>
+  );
 }

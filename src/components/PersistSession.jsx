@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuthContext, useRefreshToken } from '../hooks';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 export function PersistSession() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -25,5 +26,20 @@ export function PersistSession() {
 		return () => (isMounted = false);
 	}, [auth, refresh]);
 
-	return <>{isLoading ? <p>Loading...</p> : <Outlet />}</>;
+	return (
+    <>
+      {isLoading ? (
+        <div className="flex items-center justify-center h-screen">
+          <ProgressSpinner
+            style={{ width: "60px", height: "50px" }}
+            strokeWidth="4"
+            fill="var(--surface-ground)"
+            animationDuration=".5s"
+          />
+        </div>
+      ) : (
+        <Outlet />
+      )}
+    </>
+  );
 }
