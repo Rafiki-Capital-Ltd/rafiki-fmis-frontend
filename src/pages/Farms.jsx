@@ -1,25 +1,17 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FarmForm, Modal, Navbar, TableComponent } from '../components';
-import { createFarm, getFarms } from '../api';
+import { createFarm, deleteFarm, getFarms, updateFarm } from '../api';
 import { useFarmContext } from '../hooks';
 
 export function Farms() {
 	const [farms, setFarms] = useState([]);
 	const [visible, setVisible] = useState(false);
+	const [isEdit, setIsEdit] = useState(false);
+	const [_farm, _setFarm] = useState();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { setFarm } = useFarmContext();
-
-	const onSubmit = async (data) => {
-		try {
-			const farm = await createFarm(data);
-			setFarm(farm);
-			navigate(`/dashboard/${farm.id}`);
-		} catch (error) {
-			console.error(error);
-		}
-	};
 
 	const effectRun = useRef(false);
 	useEffect(() => {
@@ -31,7 +23,33 @@ export function Farms() {
 			})();
 		effectRun.current = true;
 		return () => effectRun.current;
-	}, []);
+	}, [visible]);
+
+	const onSubmit = async (data) => {
+		try {
+			if (!isEdit) {
+				const farm = await createFarm(data);
+				setFarm(farm);
+				navigate(`/dashboard/${farm.id}`);
+			} else {
+				await updateFarm(_farm.id, data);
+				setVisible(false);
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const onEdit = async (data) => {
+		_setFarm(data);
+		setIsEdit(true);
+		setVisible(true);
+	};
+
+	const onDelete = async (data) => {
+		_setFarm(data);
+		await deleteFarm(data.id);
+	};
 
 	return (
 		<div className='w-full bg-gray-100 flex flex-col h-screen'>
@@ -60,9 +78,11 @@ export function Farms() {
 				name={'Farms'}
 				columns={['name', 'size', 'county', 'ward']}
 				data={farms}
+				onEdit={onEdit}
+				onDelete={onDelete}
 			/>
 			<Modal visible={visible} setVisible={setVisible}>
-				<FarmForm onSubmit={onSubmit} />
+				<FarmForm onSubmit={onSubmit} data={_farm} />
 			</Modal>
 		</div>
 	);

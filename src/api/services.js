@@ -74,6 +74,24 @@ export async function createFarm(farmDetails) {
 	}
 }
 
+export async function updateFarm(farmId, farmDetails) {
+	try {
+		const res = await api.put(`${FARMS_ROUTE}/${farmId}`, farmDetails);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function deleteFarm(farmId) {
+	try {
+		const res = await api.delete(`${FARMS_ROUTE}/${farmId}`);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 export async function getFarmAssets(farmId) {
 	try {
 		const res = await api.get(FARM_ASSETS_ROUTE, { params: { farm: farmId } });

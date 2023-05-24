@@ -25,16 +25,12 @@ export function Assets() {
 			})();
 		effectRun.current = true;
 		return () => effectRun.current;
-	}, [visible, asset]);
+	}, [asset]);
 
 	const onSubmit = async (data) => {
-		try {
-			if (!isEdit) await createFarmAsset({ ...data, farm: { id: farm.id } });
-			else await updateFarmAsset(asset.id, data);
-			setVisible(false);
-		} catch (error) {
-			console.error(error);
-		}
+		if (!isEdit) await createFarmAsset({ ...data, farm: { id: farm.id } });
+		else await updateFarmAsset(asset.id, data);
+		setVisible(false);
 	};
 
 	const onEdit = async (data) => {
@@ -46,7 +42,9 @@ export function Assets() {
 	const onDelete = async (data) => {
 		setAsset(data);
 		await deleteFarmAsset(data);
-		setAsset(null);
+		setAssets((prevState) =>
+			assets.filter((asset) => asset.id !== prevState.id)
+		);
 	};
 
 	return (
