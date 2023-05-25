@@ -81,7 +81,11 @@ export function Farms() {
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
-			<Modal visible={visible} setVisible={setVisible}>
+			<Modal
+				header={isEdit ? 'Edit Farm' : 'Add New Farm'}
+				visible={visible}
+				setVisible={setVisible}
+			>
 				<FarmForm onSubmit={onSubmit} data={_farm} />
 			</Modal>
 		</div>

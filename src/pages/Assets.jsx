@@ -69,7 +69,11 @@ export function Assets() {
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
-			<Modal visible={visible} setVisible={setVisible}>
+			<Modal
+				header={isEdit ? 'Edit Asset' : 'Add New Asset'}
+				visible={visible}
+				setVisible={setVisible}
+			>
 				<AssetForm onSubmit={onSubmit} data={asset} />
 			</Modal>
 		</div>
