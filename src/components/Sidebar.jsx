@@ -23,6 +23,7 @@ export function Sidebar() {
 	const { farm } = useFarmContext();
 
 	useEffect(() => {
+		// feather.replace();
 		console.log(location.pathname);
 	}, [location]);
 
@@ -38,78 +39,78 @@ export function Sidebar() {
 	];
 
 	return (
-		<>
-			{' '}
-			<div className='flex max-w-screen '>
-				<aside
-					className={` ${
-						open ? ' w-3/4 sm:w-72' : 'w-20 '
-					} bg-green-500 h-screen p-5   pt-8 sticky top-0 duration-300`}
-				>
-					<span
-						onClick={() => setOpen(!open)}
-						className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full bg-white ${!open && 'rotate-180'}`}
-					>
-						<FiChevronLeft/>
-					</span>
+    <>
+      {" "}
+      <div className="flex max-w-screen ">
+        <aside
+          className={` ${
+            open ? " w-3/4 sm:w-72" : "w-20 "
+          } bg-green-500 h-screen p-5   pt-8 sticky top-0 duration-300`}
+        >
+          <span
+            onClick={() => setOpen(!open)}
+            className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
+           border-2 rounded-full bg-white ${!open && "rotate-180"}`}
+          >
+            <FiChevronLeft />
+          </span>
 
-					<div className='flex items-center justify-center gap-x-2 font-semibold pb-5 pt-5'>
-						<div className='text-white text-3xl'>
-							{' '}
-							<GiCorn />
-						</div>{' '}
-						<p
-							className={` ${
-								!open ? 'hidden' : 'flex text-white'
-							} text-2xl text-white`}
-						>
-							Rafiki FMIS
-						</p>
-					</div>
-					<ul className='pt-6'>
-						{Menus.map((Menu, index) => (
-							<NavLink
-								key={index}
-								to={
-									Menu.title === 'Dashboard'
-										? `/dashboard/${farm?.id}`
-										: Menu.title === 'Farms'
-										? '/farms'
-										: `/dashboard/${farm?.id}/${Menu.title.toLowerCase()}`
-								}
-							>
-								<li
-									className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-100 text-sm items-center gap-x-4 
-              ${Menu.gap ? 'mt-9' : 'mt-2'} ${
-										location.pathname ===
-											'/dashboard/' + Menu.title.toLocaleLowerCase() &&
-										'bg-light-white'
-									} `}
-								>
-									{/* <i data-feather={Menu.src}></i> */}
-									<div className='text-2xl'> {Menu.src}</div>
-									<span
-										className={`${!open && 'hidden'} origin-left duration-200`}
-									>
-										{Menu.title}
-									</span>
-								</li>{' '}
-							</NavLink>
-						))}
-					</ul>
-				</aside>
-				<div className='flex flex-col  w-full'>
-					<div className='w-[100%]'>
-						<Navbar />
-					</div>
-					<main className='flex max-w-full h-full bg-gray-100'>
-						<Outlet />
-					</main>
-				</div>
-			</div>
-		</>
-	);
+          <div className="flex items-center justify-center gap-x-2 font-semibold pb-5 pt-5">
+            <div className="text-white text-3xl">
+              {" "}
+              <GiCorn />
+            </div>{" "}
+            <p
+              className={` ${
+                !open ? "hidden" : "flex text-white"
+              } text-2xl text-white`}
+            >
+              Rafiki FMIS
+            </p>
+          </div>
+          <ul className="pt-6">
+            {Menus.map((Menu, index) => (
+              <NavLink
+                key={index}
+                to={
+                  Menu.title === "Dashboard"
+                    ? `/dashboard/${farm?.id}`
+                    : Menu.title === "Farms"
+                    ? "/farms"
+                    : `/dashboard/${farm?.id}/${Menu.title.toLowerCase()}`
+                }
+                className={({ isActive }) =>
+                  isActive
+                    ? `flex  rounded-md p-2 cursor-pointer hover:bg-gray-400 text-sm items-center gap-x-4 bg-white text-gray-500 hover:text-gray-200 ${
+                        Menu.gap ? "mt-9" : "mt-2"
+                      }`
+                    : ` flex  rounded-md p-2 cursor-pointer hover:bg-gray-400 text-gray-100 text-sm items-center gap-x-4 ${
+                        Menu.gap ? "mt-9" : "mt-2"
+                      }`
+                }
+                end
+              >
+                <span className="text-xl">{Menu.src}</span>
+                <span
+                  className={`${!open && "hidden"} origin-left duration-200`}
+                >
+                  {Menu.title}
+                </span>
+              </NavLink>
+            ))}
+          </ul>
+        </aside>
+        <div className="flex flex-col  w-full">
+          <div className="w-[100%]">
+            <Navbar />
+          </div>
+          <main className="flex max-w-full h-full bg-gray-100">
+            <Outlet />
+          </main>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Sidebar;
