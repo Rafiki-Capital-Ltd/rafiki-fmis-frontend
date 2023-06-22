@@ -58,6 +58,10 @@ export function Assets() {
     setIsEdit(true);
     setVisible(true);
   };
+  const onDelete = async (data) => {
+    setAsset(data);
+    await deleteFarmAsset(data);
+  };
 
 	return (
 		<div className='w-full bg-gray-100 flex flex-col h-screen'>
