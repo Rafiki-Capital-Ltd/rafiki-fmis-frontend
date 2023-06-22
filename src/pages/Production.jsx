@@ -58,7 +58,7 @@ export function Production() {
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>{' '}
-					<p className='pl-1 pr-2'>Add New Asset</p>
+					<p className='pl-1 pr-2'>Add Production</p>
 				</button>
 			</div>{' '}
 			<TableComponent
@@ -68,7 +68,11 @@ export function Production() {
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
-			<Modal visible={visible} setVisible={setVisible}>
+			<Modal
+				header={isEdit ? 'Edit Production' : 'Add New Production'}
+				visible={visible}
+				setVisible={setVisible}
+			>
 				<ProductionForm onSubmit={onSubmit} data={production} />
 			</Modal>
 		</div>

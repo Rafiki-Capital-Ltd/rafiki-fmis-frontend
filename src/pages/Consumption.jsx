@@ -58,7 +58,7 @@ export function Consumption() {
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>{' '}
-					<p className='pl-1 pr-2'>Add New Asset</p>
+					<p className='pl-1 pr-2'>Add Consumption</p>
 				</button>
 			</div>{' '}
 			<TableComponent
@@ -68,7 +68,11 @@ export function Consumption() {
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
-			<Modal visible={visible} setVisible={setVisible}>
+			<Modal
+				header={isEdit ? 'Edit Consumption' : 'Add New Consumption'}
+				visible={visible}
+				setVisible={setVisible}
+			>
 				<ConsumptionForm onSubmit={onSubmit} data={consumption} />
 			</Modal>
 		</div>

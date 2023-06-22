@@ -58,7 +58,7 @@ export function Animals() {
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>{' '}
-					<p className='pl-1 pr-2'>Add New Asset</p>
+					<p className='pl-1 pr-2'>Add New Animal</p>
 				</button>
 			</div>{' '}
 			<TableComponent
@@ -68,7 +68,11 @@ export function Animals() {
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
-			<Modal visible={visible} setVisible={setVisible}>
+			<Modal
+				header={isEdit ? 'Edit Animal' : 'Add New Animal'}
+				visible={visible}
+				setVisible={setVisible}
+			>
 				<AnimalForm onSubmit={onSubmit} data={animal} />
 			</Modal>
 		</div>

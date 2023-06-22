@@ -58,7 +58,7 @@ export function Crops() {
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>{' '}
-					<p className='pl-1 pr-2'>Add New Asset</p>
+					<p className='pl-1 pr-2'>Add New Crop</p>
 				</button>
 			</div>{' '}
 			<TableComponent
@@ -68,7 +68,11 @@ export function Crops() {
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
-			<Modal visible={visible} setVisible={setVisible}>
+			<Modal
+				header={isEdit ? 'Edit Crop' : 'Add New Crop'}
+				visible={visible}
+				setVisible={setVisible}
+			>
 				<CropForm onSubmit={onSubmit} data={crop} />
 			</Modal>
 		</div>

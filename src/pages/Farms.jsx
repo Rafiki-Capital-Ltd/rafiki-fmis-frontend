@@ -39,11 +39,10 @@ export function Farms() {
   };
 
   const onSubmit = async (data) => {
-
     try {
       if (!isEdit) {
         const farm = await createFarm(data);
-		setIsLoading(true)
+        setIsLoading(true);
         setFarm(farm);
         navigate(`/dashboard/${farm.id}`);
       } else {
@@ -54,7 +53,7 @@ export function Farms() {
     } catch (error) {
       console.error(error);
     }
-		setIsLoading(false);
+    setIsLoading(false);
   };
 
   const onEdit = async (data) => {
@@ -100,7 +99,11 @@ export function Farms() {
         onEdit={onEdit}
         onDelete={onDelete}
       />
-      <Modal visible={visible} setVisible={setVisible}>
+      <Modal
+        header={isEdit ? "Edit Farm" : "Add New Farm"}
+        visible={visible}
+        setVisible={setVisible}
+      >
         <FarmForm onSubmit={onSubmit} data={_farm} />
       </Modal>
     </div>

@@ -58,7 +58,7 @@ export function Sales() {
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>{' '}
-					<p className='pl-1 pr-2'>Add New Asset</p>
+					<p className='pl-1 pr-2'>Add Sale</p>
 				</button>
 			</div>{' '}
 			<TableComponent
@@ -68,7 +68,11 @@ export function Sales() {
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
-			<Modal visible={visible} setVisible={setVisible}>
+			<Modal
+				header={isEdit ? 'Edit Sale' : 'Add New Sale'}
+				visible={visible}
+				setVisible={setVisible}
+			>
 				<SaleForm onSubmit={onSubmit} data={sale} />
 			</Modal>
 		</div>

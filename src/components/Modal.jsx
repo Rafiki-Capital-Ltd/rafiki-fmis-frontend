@@ -2,7 +2,7 @@ import { Dialog } from 'primereact/dialog';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export function Modal({ visible, setVisible, children }) {
+export function Modal({ visible, setVisible, header, children }) {
 	const [_visible, _setVisible] = useState(visible);
 
 	useEffect(() => {
@@ -11,7 +11,7 @@ export function Modal({ visible, setVisible, children }) {
 
 	return (
 		<Dialog
-			header='Add New Asset'
+			header={header}
 			visible={_visible}
 			style={{ width: '50vw' }}
 			onHide={() => {
