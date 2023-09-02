@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { InputElement } from '../InputElement';
 import { TextArea } from '../TextArea';
 import { ProgressSpinner } from 'primereact/progressspinner';
+import { useEffect } from 'react';
 
-export function AssetForm({ onSubmit, data }) {
+export function InputForm({ onSubmit, data }) {
 	const [type, setType] = useState(data?.type);
 	const [description, setDescription] = useState(data?.description);
-	const [storageLocation, setStorageLocation] = useState(data?.storageLocation);
-	const [status, setStatus] = useState(data?.status);
+	const [quantity, setQuantity] = useState(data?.quantity);
+	const [unit, setUnit] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 
 	return (
@@ -27,7 +28,7 @@ export function AssetForm({ onSubmit, data }) {
 				<div className='col-span-6 p-5'>
 					<TextArea
 						label='Description'
-						placeHolder='Asset Description...'
+						placeHolder='Input Description...'
 						required={true}
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
@@ -35,38 +36,37 @@ export function AssetForm({ onSubmit, data }) {
 				</div>
 				<div className='col-span-3 p-5'>
 					<InputElement
-						type='text'
-						label='Storage Location'
-						placeHolder='Storage Location'
+						type='number'
+						label='Quantity'
+						placeHolder='Quantity'
 						required={true}
-						value={storageLocation}
-						onChange={(e) => setStorageLocation(e.target.value)}
+						value={quantity}
+						onChange={(e) => setQuantity(e.target.value)}
 					/>
 				</div>
 				<div className='col-span-3 p-5'>
 					<label className='block mb-1 text-sm font-semibold  text-gray-600'>
-						Status
+						Units
 					</label>
 					<select
-						name='status'
-						id='status'
-						value={status}
-						onChange={(e) => setStatus(e.target.value)}
+						name='units'
+						id='units'
+						value={unit}
+						onChange={(e) => setUnit(e.target.value)}
 						className='shadow-sm bg-gray-50 border text-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
 					>
 						<option value={null} selected>
-							-- Select Status --
+							-- Select Units --
 						</option>
-						<option value='FUNCTIONAL'>Functional</option>
-						<option value='NON_FUNCTIONAL'>Non Functional</option>
+						<option value='l'>l (litres)</option>
+						<option value='kg'>kg (kilograms)</option>
 					</select>
 				</div>
 			</div>
 			<div className='text-right'>
 				<button
 					onClick={() => {
-						setIsLoading(true),
-							onSubmit({ type, description, storageLocation, status });
+						setIsLoading(true), onSubmit({ type, description, quantity });
 					}}
 					className='bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md first-letter:'
 				>

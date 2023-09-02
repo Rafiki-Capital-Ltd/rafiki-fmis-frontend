@@ -28,25 +28,33 @@ export function Consumption() {
 	}, [consumption]);
 
 	const onSubmit = async (data) => {
-		if (!isEdit)
-			await createFarmConsumption({
+		let cs;
+		if (!isEdit) {
+			cs = await createFarmConsumption({
 				...data,
 				farm: { id: farm.id },
 				owner: { id: auth.id },
 			});
-		else await updateFarmConsumption(consumption.id, data);
+			setConsumptions((data) => [cs, ...data]);
+		} else {
+			cs = await updateFarmConsumption(consumption.id, data);
+			setConsumptions((data) => {
+				const idx = data.findIndex((c) => c.id === cs.id);
+				return [...data.slice(0, idx), cs, ...data.slice(idx + 1, data.length)];
+			});
+		}
 		setVisible(false);
 	};
 
-	const onEdit = async (data) => {
-		setConsumption(data);
+	const onEdit = async (consumption) => {
+		setConsumption(consumption);
 		setIsEdit(true);
 		setVisible(true);
 	};
 
-	const onDelete = async (data) => {
-		setConsumption(data);
-		await deleteFarmConsumption(data);
+	const onDelete = async (consumption) => {
+		await deleteFarmConsumption(consumption);
+		setConsumptions((data) => data.filter((c) => c.id !== consumption.id));
 	};
 
 	return (

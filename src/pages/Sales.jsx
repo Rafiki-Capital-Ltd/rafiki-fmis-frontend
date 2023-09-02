@@ -28,14 +28,24 @@ export function Sales() {
 	}, [sale]);
 
 	const onSubmit = async (data) => {
-		if (!isEdit)
-			await createFarmSale({
+		let sl;
+		if (!isEdit) {
+			sl = await createFarmSale({
 				...data,
 				farm: { id: farm.id },
 				owner: { id: auth.id },
 			});
-		else await updateFarmSale(sale.id, data);
+			setSales((data) => [sl, ...data]);
+		} else {
+			sl = await updateFarmSale(sale.id, data);
+			setSales((data) => {
+				const idx = data.findIndex((s) => s.id === sl.id);
+				return [...data.slice(0, idx), sl, ...data.slice(idx + 1, data.length)];
+			});
+		}
 		setVisible(false);
+		setSale(null);
+		setIsEdit(false);
 	};
 
 	const onEdit = async (data) => {
@@ -44,9 +54,9 @@ export function Sales() {
 		setVisible(true);
 	};
 
-	const onDelete = async (data) => {
-		setSale(data);
-		await deleteFarmSale(data);
+	const onDelete = async (sale) => {
+		await deleteFarmSale(sale);
+		setSales((data) => data.filter((s) => s.id !== sale.id));
 	};
 
 	return (

@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaCashRegister, FaPlateWheat } from 'react-icons/fa6';
+import { GiTakeMyMoney, GiPayMoney, GiWheat, GiCash } from 'react-icons/gi';
+import { MdOutlineSell } from 'react-icons/md';
 
 import { data } from '../data';
 import {
@@ -116,15 +119,23 @@ export function Dashboard() {
 						open ? ' hidden sm:flex ' : 'flex mx-5 gap-x-2'
 					} flex flex-row flex-wrap justify-around items-center`}
 				>
-					<DashboardCard percentage={7} amount={counts.assets} text='Assets' />
 					<DashboardCard
-						percentage={7}
+						icon={<GiWheat size={50} />}
 						amount={counts.production}
 						text='Production'
 					/>
-					<DashboardCard percentage={7} amount={counts.sales} text='Sales' />
 					<DashboardCard
-						percentage={7}
+						icon={<GiCash size={50} />}
+						amount={counts.sales}
+						text='Sales'
+					/>
+					<DashboardCard
+						icon={<GiPayMoney size={50} />}
+						amount={counts.sales}
+						text='Expenses'
+					/>
+					<DashboardCard
+						icon={<FaPlateWheat size={50} />}
 						amount={counts.consumption}
 						text='Consumption'
 					/>

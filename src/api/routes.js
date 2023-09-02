@@ -12,6 +12,9 @@ export const FARM_CONTEXT_ROUTE = FARMS_ROUTE + '/context';
 export const FARM_ASSETS_ROUTE = '/farm-assets';
 export const FARM_ASSETS_COUNT_ROUTE = FARM_ASSETS_ROUTE + '/count';
 
+export const FARM_INPUTS_ROUTE = '/farm-inputs';
+export const FARM_INPUTS_COUNT_ROUTE = FARM_INPUTS_ROUTE + '/count';
+
 export const FARM_ANIMALS_ROUTE = '/farm-animals';
 export const FARM_CROPS_ROUTE = '/farm-crops';
 
@@ -24,4 +27,8 @@ export const FARM_PRODUCTIONS_TOTAL_ROUTE = FARM_PRODUCTIONS_ROUTE + '/total';
 export const FARM_SALES_ROUTE = '/farm-sales';
 export const FARM_SALES_TOTAL_ROUTE = FARM_SALES_ROUTE + '/total';
 
+export const FARM_PURCHASES_ROUTE = '/farm-purchases';
+export const FARM_PURCHASES_TOTAL_ROUTE = FARM_PURCHASES_ROUTE + '/total';
 
+export const FARM_EXPENSES_ROUTE = '/farm-expenses';
+export const FARM_EXPENSES_TOTAL_ROUTE = FARM_EXPENSES_ROUTE + '/total';

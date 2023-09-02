@@ -1,20 +1,20 @@
 import { useEffect, useState, useRef } from 'react';
-import { AssetForm, Modal, TableComponent } from '../components';
+import { InputForm, Modal, TableComponent } from '../components';
 import {
-	createFarmAsset,
-	deleteFarmAsset,
-	getFarmAssets,
-	updateFarmAsset,
+	createFarmInput,
+	deleteFarmInput,
+	getFarmInputs,
+	updateFarmInput,
 } from '../api';
 
 import { useAuthContext, useFarmContext } from '../hooks';
 
-export function Assets() {
-	const [assets, setAssets] = useState([]);
+export function FarmInputs() {
+	const [inputs, setInputs] = useState([]);
 	const [visible, setVisible] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [asset, setAsset] = useState();
+	const [input, setInput] = useState();
 	const { farm } = useFarmContext();
 	const { auth } = useAuthContext();
 
@@ -22,71 +22,70 @@ export function Assets() {
 	useEffect(() => {
 		if (!effectRun.current)
 			(async () => {
-				const _assets = await getFarmAssets(farm.id);
-				setAssets(_assets.content);
+				const _inputs = await getFarmInputs(farm.id);
+				setInputs(_inputs.content);
 			})();
 		effectRun.current = true;
 		return () => effectRun.current;
 	}, []);
 
 	const onSubmit = async (data) => {
-		let a;
+		let i;
 		if (!isEdit) {
-			a = await createFarmAsset({
+			i = await createFarmInput({
 				...data,
 				farm: { id: farm.id },
 				owner: { id: auth.id },
 			});
-			setAssets((data) => [a, ...data]);
+			setInputs((data) => [i, ...data]);
 		} else {
-			a = await updateFarmAsset(asset.id, data);
-			setAssets((data) => {
-				const idx = data.findIndex((as) => as.id === a.id);
-				return [...data.slice(0, idx), a, ...data.slice(idx + 1, data.length)];
+			i = await updateFarmInput(input.id, data);
+			setInputs((data) => {
+				const idx = data.findIndex((ip) => ip.id === i.id);
+				return [...data.slice(0, idx), i, ...data.slice(idx + 1, data.length)];
 			});
-			setAsset(null);
+			setInput(null);
 			setIsEdit(false);
 		}
-		console.log(asset);
 		setVisible(false);
 	};
 
-	const onEdit = async (asset) => {
-		setAsset(asset);
+	const onEdit = async (input) => {
+		setInput(input);
 		setIsEdit(true);
 		setVisible(true);
 	};
 
-	const onDelete = async (asset) => {
-		await deleteFarmAsset(asset);
-		setAssets((data) => data.filter((a) => a.id !== asset.id));
+	const onDelete = async (input) => {
+		await deleteFarmInput(input);
+		setInputs((data) => data.filter((a) => a.id !== input.id));
 	};
 
 	return (
 		<div className='w-full bg-gray-100 flex flex-col h-screen'>
 			<div className='flex justify-between w-full px-10 py-5'>
-				<div className='flex py-2  text-gray-600 text-2xl'>Assets</div>
+				<div className='flex py-2  text-gray-600 text-2xl'>Farm Inputs</div>
 				<button
 					className='flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg'
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>
-					<p className='pl-1 pr-2'> Add New Asset</p>
+					<p className='pl-1 pr-2'>Add New Input</p>
 				</button>
 			</div>
 			<TableComponent
-				name={'Assets'}
-				columns={['type', 'description', 'storageLocation', 'status']}
-				data={assets}
+				name={'Inputs'}
+				columns={['type', 'description', 'quantity']}
+				data={inputs}
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
 			<Modal
-				header={isEdit ? 'Edit Asset' : 'Add New Asset'}
+				header={isEdit ? 'Edit Input' : 'Add New Input'}
 				visible={visible}
 				setVisible={setVisible}
 			>
-				<AssetForm onSubmit={onSubmit} data={asset} />
+				<InputForm onSubmit={onSubmit} data={input} />
 			</Modal>
 		</div>
 	);

@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { InputElement } from '../InputElement';
 import { TextArea } from '../TextArea';
 
-export function SaleForm({ onSubmit, data }) {
+export function ExpenseForm({ onSubmit, data }) {
 	const [date, setDate] = useState(data?.date);
 	const [type, setType] = useState(data?.type);
-	const [quantity, setQuantity] = useState(data?.quantity);
 	const [amount, setAmount] = useState(data?.amount);
 	const [description, setDescription] = useState(data?.description);
 
@@ -37,23 +36,12 @@ export function SaleForm({ onSubmit, data }) {
 						<option value={null} selected>
 							-- Select Type --
 						</option>
-						<option value='CASH'>Cash</option>
-						<option value='CREDIT'>Credit</option>
+						<option value='RECURRING'>Recurring</option>
+						<option value='ONE_TIME'>One Time</option>
 					</select>
 				</div>
 
-				<div className='col-span-3 p-5'>
-					<InputElement
-						type='number'
-						label='Quantity'
-						placeHolder='Quantity'
-						required={true}
-						value={quantity}
-						onChange={(e) => setQuantity(e.target.value)}
-					/>
-				</div>
-
-				<div className='col-span-3 p-5'>
+				<div className='col-span-6 p-5'>
 					<InputElement
 						type='number'
 						label='Amount'
@@ -67,7 +55,7 @@ export function SaleForm({ onSubmit, data }) {
 				<div className='col-span-6 p-5'>
 					<TextArea
 						label='Description'
-						placeHolder='Sale description...'
+						placeHolder='Expense description...'
 						required={true}
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}
@@ -76,9 +64,7 @@ export function SaleForm({ onSubmit, data }) {
 			</div>
 			<div className='text-right'>
 				<button
-					onClick={() =>
-						onSubmit({ date, type, quantity, amount, description })
-					}
+					onClick={() => onSubmit({ date, type, amount, description })}
 					className='bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md'
 				>
 					<p className='flex items-center'>Submit</p>

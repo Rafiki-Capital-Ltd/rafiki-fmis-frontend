@@ -3,9 +3,12 @@ import {
 	FARMS_ROUTE,
 	FARM_ANIMALS_ROUTE,
 	FARM_ASSETS_ROUTE,
+	FARM_INPUTS_ROUTE,
 	FARM_CONSUMPTIONS_ROUTE,
 	FARM_PRODUCTIONS_ROUTE,
 	FARM_SALES_ROUTE,
+	FARM_PURCHASES_ROUTE,
+	FARM_EXPENSES_ROUTE,
 	FARM_CROPS_ROUTE,
 	LOGIN_ROUTE,
 	LOGOUT_ROUTE,
@@ -58,7 +61,6 @@ export async function logout() {
 export async function getFarms() {
 	try {
 		const res = await api.get(FARMS_ROUTE);
-		console.log(res);
 		return res?.data;
 	} catch (error) {
 		console.error(error);
@@ -133,6 +135,44 @@ export async function updateFarmAsset(assetId, farmAsset) {
 export async function deleteFarmAsset(farmAsset) {
 	try {
 		const res = await api.delete(`${FARM_ASSETS_ROUTE}/${farmAsset.id}`);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+// FARM INPUTS
+
+export async function getFarmInputs(farmId) {
+	try {
+		const res = await api.get(FARM_INPUTS_ROUTE, { params: { farm: farmId } });
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function createFarmInput(farmInputDetails) {
+	try {
+		const res = await api.post(FARM_INPUTS_ROUTE, farmInputDetails);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function updateFarmInput(inputId, farmInput) {
+	try {
+		const res = await api.put(`${FARM_INPUTS_ROUTE}/${inputId}`, farmInput);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function deleteFarmInput(farmInput) {
+	try {
+		const res = await api.delete(`${FARM_INPUTS_ROUTE}/${farmInput.id}`);
 		return res?.data;
 	} catch (error) {
 		console.error(error);
@@ -282,10 +322,10 @@ export async function createFarmProduction(farmProductionDetails) {
 	}
 }
 
-export async function updateFarmProduction(consumptionId, farmProduction) {
+export async function updateFarmProduction(productionId, farmProduction) {
 	try {
 		const res = await api.put(
-			`${FARM_PRODUCTIONS_ROUTE}/${consumptionId}`,
+			`${FARM_PRODUCTIONS_ROUTE}/${productionId}`,
 			farmProduction
 		);
 		return res?.data;
@@ -327,9 +367,9 @@ export async function createFarmSale(farmSaleDetails) {
 	}
 }
 
-export async function updateFarmSale(consumptionId, farmSale) {
+export async function updateFarmSale(saleId, farmSale) {
 	try {
-		const res = await api.put(`${FARM_SALES_ROUTE}/${consumptionId}`, farmSale);
+		const res = await api.put(`${FARM_SALES_ROUTE}/${saleId}`, farmSale);
 		return res?.data;
 	} catch (error) {
 		console.error(error);
@@ -339,6 +379,92 @@ export async function updateFarmSale(consumptionId, farmSale) {
 export async function deleteFarmSale(farmSale) {
 	try {
 		const res = await api.delete(`${FARM_SALES_ROUTE}/${farmSale.id}`);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+// FARM PURCHASES
+
+export async function getFarmPurchases(farmId) {
+	try {
+		const res = await api.get(FARM_PURCHASES_ROUTE, {
+			params: { farm: farmId },
+		});
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function createFarmPurchase(farmPurchaseDetails) {
+	try {
+		const res = await api.post(FARM_PURCHASES_ROUTE, farmPurchaseDetails);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function updateFarmPurchase(purchaseId, farmPurchase) {
+	try {
+		const res = await api.put(
+			`${FARM_PURCHASES_ROUTE}/${purchaseId}`,
+			farmPurchase
+		);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function deleteFarmPurchase(farmPurchase) {
+	try {
+		const res = await api.delete(`${FARM_PURCHASES_ROUTE}/${farmPurchase.id}`);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+// FARM EXPENSES
+
+export async function getFarmExpenses(farmId) {
+	try {
+		const res = await api.get(FARM_EXPENSES_ROUTE, {
+			params: { farm: farmId },
+		});
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function createFarmExpense(farmExpenseDetails) {
+	try {
+		const res = await api.post(FARM_EXPENSES_ROUTE, farmExpenseDetails);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function updateFarmExpense(expenseId, farmExpense) {
+	try {
+		const res = await api.put(
+			`${FARM_EXPENSES_ROUTE}/${expenseId}`,
+			farmExpense
+		);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function deleteFarmExpense(farmExpense) {
+	try {
+		const res = await api.delete(`${FARM_EXPENSES_ROUTE}/${farmExpense.id}`);
 		return res?.data;
 	} catch (error) {
 		console.error(error);

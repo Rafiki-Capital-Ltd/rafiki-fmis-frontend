@@ -28,25 +28,35 @@ export function Production() {
 	}, [production]);
 
 	const onSubmit = async (data) => {
-		if (!isEdit)
-			await createFarmProduction({
+		let pr;
+		if (!isEdit) {
+			pr = await createFarmProduction({
 				...data,
 				farm: { id: farm.id },
 				owner: { id: auth.id },
 			});
-		else await updateFarmProduction(production.id, data);
+			setProductions((data) => [pr, ...data]);
+		} else {
+			pr = await updateFarmProduction(production.id, data);
+			setProductions((data) => {
+				const idx = data.findIndex((p) => p.id === pr.id);
+				return [...data.slice(0, idx), pr, ...data.slice(idx + 1, data.length)];
+			});
+		}
 		setVisible(false);
+		setProduction(null);
+		setIsEdit(false);
 	};
 
-	const onEdit = async (data) => {
-		setProduction(data);
+	const onEdit = async (production) => {
+		setProduction(production);
 		setIsEdit(true);
 		setVisible(true);
 	};
 
-	const onDelete = async (data) => {
-		setProduction(data);
-		await deleteFarmProduction(data);
+	const onDelete = async (production) => {
+		await deleteFarmProduction(production);
+		setProductions((data) => data.filter((p) => p.id !== production.id));
 	};
 
 	return (

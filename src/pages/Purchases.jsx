@@ -1,16 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
-import { AnimalForm, Modal, TableComponent } from '../components';
+import { PurchaseForm, Modal, TableComponent } from '../components';
 import { useAuthContext, useFarmContext } from '../hooks';
 import {
-	createFarmAnimal,
-	deleteFarmAnimal,
-	getFarmAnimals,
-	updateFarmAnimal,
+	createFarmPurchase,
+	deleteFarmPurchase,
+	getFarmPurchases,
+	updateFarmPurchase,
 } from '../api';
 
-export function Animals() {
-	const [animals, setAnimals] = useState([]);
-	const [animal, setAnimal] = useState();
+export function Purchases() {
+	const [purchases, setPurchases] = useState([]);
+	const [purchase, setPurchase] = useState();
 	const [isEdit, setIsEdit] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const { farm } = useFarmContext();
@@ -20,70 +20,70 @@ export function Animals() {
 	useEffect(() => {
 		if (!effectRun.current)
 			(async () => {
-				const _animals = await getFarmAnimals(farm.id);
-				setAnimals(_animals.content);
+				const _purchases = await getFarmPurchases(farm.id);
+				setPurchases(_purchases.content);
 			})();
 		effectRun.current = true;
 		return () => effectRun.current;
-	}, [animal]);
+	}, [purchase]);
 
 	const onSubmit = async (data) => {
-		let a;
+		let pc;
 		if (!isEdit) {
-			a = await createFarmAnimal({
+			pc = await createFarmPurchase({
 				...data,
 				farm: { id: farm.id },
 				owner: { id: auth.id },
 			});
-			setAnimals((data) => [a, ...data]);
+			setPurchases((data) => [pc, ...data]);
 		} else {
-			a = await updateFarmAnimal(animal.id, data);
-			setAnimals((data) => {
-				const idx = data.findIndex((an) => an.id === a.id);
-				return [...data.slice(0, idx), a, ...data.slice(idx + 1, data.length)];
+			pc = await updateFarmPurchase(purchase.id, data);
+			setPurchases((data) => {
+				const idx = data.findIndex((p) => p.id === pc.id);
+				return [...data.slice(0, idx), pc, ...data.slice(idx + 1, data.length)];
 			});
-			setAnimal(null);
-			setIsEdit(false);
 		}
 		setVisible(false);
+		setPurchase(null);
+		setIsEdit(false);
 	};
 
 	const onEdit = async (data) => {
-		setAnimal(data);
+		setPurchase(data);
 		setIsEdit(true);
 		setVisible(true);
 	};
 
-	const onDelete = async (animal) => {
-		await deleteFarmAnimal(animal);
-		setAnimals((data) => data.filter((a) => a.id !== animal.id));
+	const onDelete = async (purchase) => {
+		await deleteFarmPurchase(purchase);
+		setPurchases((data) => data.filter((pc) => pc.id !== purchase.id));
 	};
 
 	return (
 		<div className='w-full bg-gray-100 flex flex-col h-screen'>
 			<div className='flex justify-between w-full px-10 py-5'>
-				<div className='flex py-2  text-gray-600 text-2xl'> Animals </div>
+				<div className='flex py-2  text-gray-600 text-2xl'> Purchases </div>
 				<button
 					className='flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg'
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>{' '}
-					<p className='pl-1 pr-2'>Add New Animal</p>
+					<p className='pl-1 pr-2'>Add Purchase</p>
 				</button>
 			</div>{' '}
 			<TableComponent
-				name={'Animals'}
-				columns={['type', 'description', 'quantity']}
-				data={animals}
+				name={'Purchases'}
+				columns={['date', 'type', 'quantity', 'amount', 'description']}
+				data={purchases}
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
 			<Modal
-				header={isEdit ? 'Edit Animal' : 'Add New Animal'}
+				header={isEdit ? 'Edit Purchase' : 'Add New Purchase'}
 				visible={visible}
 				setVisible={setVisible}
 			>
-				<AnimalForm onSubmit={onSubmit} data={animal} />
+				<PurchaseForm onSubmit={onSubmit} data={purchase} />
 			</Modal>
 		</div>
 	);

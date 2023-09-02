@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { InputElement } from '../InputElement';
 import { TextArea } from '../TextArea';
 
-export function SaleForm({ onSubmit, data }) {
+export function PurchaseForm({ onSubmit, data }) {
 	const [date, setDate] = useState(data?.date);
 	const [type, setType] = useState(data?.type);
 	const [quantity, setQuantity] = useState(data?.quantity);
@@ -67,7 +67,7 @@ export function SaleForm({ onSubmit, data }) {
 				<div className='col-span-6 p-5'>
 					<TextArea
 						label='Description'
-						placeHolder='Sale description...'
+						placeHolder='Purchase description...'
 						required={true}
 						value={description}
 						onChange={(e) => setDescription(e.target.value)}

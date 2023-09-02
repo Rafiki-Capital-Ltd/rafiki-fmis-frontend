@@ -14,6 +14,10 @@ import {
 	Register,
 	VerifyEmail,
 	Home,
+	FarmInputs,
+	Purchases,
+	Expenses,
+	Logout,
 } from './pages';
 
 function App() {
@@ -31,16 +35,21 @@ function App() {
 							<Route element={<PersistFarm />}>
 								<Route index element={<Dashboard />} />
 								<Route path='assets' element={<Assets />} />
+								<Route path='inputs' element={<FarmInputs />} />
 								<Route path='animals' element={<Animals />} />
 								<Route path='crops' element={<Crops />} />
 								<Route path='consumption' element={<Consumption />} />
 								<Route path='production' element={<Production />} />
 								<Route path='sales' element={<Sales />} />
+								<Route path='purchases' element={<Purchases />} />
+								<Route path='expenses' element={<Expenses />} />
 								<Route path='farms' element={<Farms />} />
 							</Route>
 						</Route>
 					</Route>
 				</Route>
+				<Route path='/logout' element={<Logout />} />
+				<Route path='*' element={<h1>404 NOT FOUND</h1>} />
 			</Routes>
 		</>
 	);

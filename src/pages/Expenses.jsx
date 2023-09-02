@@ -1,16 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
-import { CropForm, Modal, TableComponent } from '../components';
+import { ExpenseForm, Modal, TableComponent } from '../components';
 import { useAuthContext, useFarmContext } from '../hooks';
 import {
-	createFarmCrop,
-	deleteFarmCrop,
-	getFarmCrops,
-	updateFarmCrop,
+	createFarmExpense,
+	deleteFarmExpense,
+	getFarmExpenses,
+	updateFarmExpense,
 } from '../api';
 
-export function Crops() {
-	const [crops, setCrops] = useState([]);
-	const [crop, setCrop] = useState();
+export function Expenses() {
+	const [expenses, setExpenses] = useState([]);
+	const [expense, setExpense] = useState();
 	const [isEdit, setIsEdit] = useState(false);
 	const [visible, setVisible] = useState(false);
 	const { farm } = useFarmContext();
@@ -20,70 +20,70 @@ export function Crops() {
 	useEffect(() => {
 		if (!effectRun.current)
 			(async () => {
-				const _crops = await getFarmCrops(farm.id);
-				setCrops(_crops.content);
+				const _expenses = await getFarmExpenses(farm.id);
+				setExpenses(_expenses.content);
 			})();
 		effectRun.current = true;
 		return () => effectRun.current;
-	}, [crop]);
+	}, [expense]);
 
 	const onSubmit = async (data) => {
-		let c;
+		let ex;
 		if (!isEdit) {
-			c = await createFarmCrop({
+			ex = await createFarmExpense({
 				...data,
 				farm: { id: farm.id },
 				owner: { id: auth.id },
 			});
-			setCrops((data) => [c, ...data]);
+			setExpenses((data) => [ex, ...data]);
 		} else {
-			c = await updateFarmCrop(crop.id, data);
-			setCrops((data) => {
-				const idx = data.findIndex((cp) => cp.id === c.id);
-				return [...data.slice(0, idx), c, ...data.slice(idx + 1, data.length)];
+			ex = await updateFarmExpense(expense.id, data);
+			setExpenses((data) => {
+				const idx = data.findIndex((e) => e.id === ex.id);
+				return [...data.slice(0, idx), ex, ...data.slice(idx + 1, data.length)];
 			});
 		}
 		setVisible(false);
-		setCrop(null);
+		setExpense(null);
 		setIsEdit(false);
 	};
 
-	const onEdit = async (crop) => {
-		setCrop(crop);
+	const onEdit = async (data) => {
+		setExpense(data);
 		setIsEdit(true);
 		setVisible(true);
 	};
 
-	const onDelete = async (crop) => {
-		await deleteFarmCrop(crop);
-		setCrops((data) => data.filter((c) => c.id !== crop.id));
+	const onDelete = async (expense) => {
+		await deleteFarmExpense(expense);
+		setExpenses((data) => data.filter((ex) => ex.id !== expense.id));
 	};
 
 	return (
 		<div className='w-full bg-gray-100 flex flex-col h-screen'>
 			<div className='flex justify-between w-full px-10 py-5'>
-				<div className='flex py-2  text-gray-600 text-2xl'> Crops </div>
+				<div className='flex py-2  text-gray-600 text-2xl'> Expenses </div>
 				<button
 					className='flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg'
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>{' '}
-					<p className='pl-1 pr-2'>Add New Crop</p>
+					<p className='pl-1 pr-2'>Add Expense</p>
 				</button>
 			</div>{' '}
 			<TableComponent
-				name={'Crops'}
-				columns={['type', 'description', 'quantity']}
-				data={crops}
+				name={'Expenses'}
+				columns={['date', 'type', 'amount', 'description']}
+				data={expenses}
 				onEdit={onEdit}
 				onDelete={onDelete}
 			/>
 			<Modal
-				header={isEdit ? 'Edit Crop' : 'Add New Crop'}
+				header={isEdit ? 'Edit Expense' : 'Add New Expense'}
 				visible={visible}
 				setVisible={setVisible}
 			>
-				<CropForm onSubmit={onSubmit} data={crop} />
+				<ExpenseForm onSubmit={onSubmit} data={expense} />
 			</Modal>
 		</div>
 	);
