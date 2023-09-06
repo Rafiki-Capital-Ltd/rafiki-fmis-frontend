@@ -35,6 +35,7 @@ export function Register() {
 				navigate('/login');
 			} catch (error) {
 				console.error(error);
+				toast.error('Signup failed!');
 			}
 		}
 	};
@@ -55,7 +56,7 @@ export function Register() {
 					</Link>
 				</p>
 
-				<div className='grid grid-row-1  md:grid-row-4  '>
+				<div className='grid grid-row-1  md:grid-row-4'>
 					<div className='row-span-1 md:row-span-2 row-start-2'>
 						<form onSubmit={onSubmit}>
 							<div className='grid grid-cols-1 md:grid-cols-2 gap-x-6'>
