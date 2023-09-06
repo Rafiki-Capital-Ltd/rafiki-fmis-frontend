@@ -1,5 +1,9 @@
 export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
+export const COUNTY_ROUTE = '/counties';
+export const CONSTITUENCY_ROUTE = '/constituencies';
+export const SUBCOUNTY_ROUTE = '/subcounties';
+
 export const LOGIN_ROUTE = '/auth/login';
 export const LOGOUT_ROUTE = '/auth/logout';
 export const REGISTER_ROUTE = '/auth/register';

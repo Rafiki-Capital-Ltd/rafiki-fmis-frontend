@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { InputElement } from '../InputElement';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import { useEffect } from 'react';
-import { useApi } from '../../hooks';
 import { useRef } from 'react';
+import { Select } from '../Select';
+import { getCounties, getConstituencies, getSubCounties } from '../../api';
+import { toast } from 'react-toastify';
 
 export function FarmForm({ onSubmit, data }) {
 	const [name, setName] = useState(data?.name);
@@ -14,18 +15,16 @@ export function FarmForm({ onSubmit, data }) {
 	const [counties, setCounties] = useState([]);
 	const [constituencies, setConstituencies] = useState([]);
 	const [subCounties, setSubCounties] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const api = useApi();
 
 	const effectRun = useRef(false);
 	useEffect(() => {
 		if (!effectRun.current) {
 			(async () => {
 				try {
-					const res = await api.get('/counties');
-					setCounties(res.data?.content);
+					const data = await getCounties();
+					setCounties(data);
 				} catch (error) {
-					console.error(error);
+					toast.error('Failed to fetch counties!');
 				}
 			})();
 		}
@@ -35,14 +34,12 @@ export function FarmForm({ onSubmit, data }) {
 	useEffect(() => {
 		(async () => {
 			try {
-				if (county?.id) {
-					const res = await api.get('/constituencies', {
-						params: { county: county?.id },
-					});
-					setConstituencies(res.data);
-				}
+				const data = await getConstituencies({
+					params: { county: county?.id },
+				});
+				setConstituencies(data);
 			} catch (error) {
-				console.error(error);
+				toast.error('Failed to fetch constituencies!');
 			}
 		})();
 		return () => true;
@@ -52,144 +49,84 @@ export function FarmForm({ onSubmit, data }) {
 		(async () => {
 			try {
 				if (constituency?.id) {
-					const res = await api.get('/subcounties', {
+					const data = await getSubCounties({
 						params: { constituency: constituency?.id },
 					});
-					setSubCounties(res.data);
+					setSubCounties(data);
 				}
 			} catch (error) {
-				console.error(error);
+				toast.error('Failed to fetch sub counties!');
 			}
 		})();
-		return () => true;
+		return () => false;
 	}, [constituency]);
 
 	return (
-		<>
-			<div className='grid grid-cols-6'>
-				<div className='col-span-3 p-5'>
-					<InputElement
-						type='text'
-						label='Farm Name'
-						placeHolder='Farm Name'
-						required={true}
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-					/>
-				</div>
-
-				<div className='col-span-3 p-5'>
-					<InputElement
-						type='number'
-						label='Size '
-						placeHolder='size in Acerage'
-						required={true}
-						value={size}
-						onChange={(e) => setSize(e.target.value)}
-					/>
-				</div>
-
-				<div className='col-span-2 p-5'>
-					<label className='block mb-1 text-sm font-semibold  text-gray-600'>
-						County
-					</label>
-					<select
-						className='shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-						name='counties'
-						id='counties'
-						value={county?.id}
-						onChange={(e) => {
-							setCounty(counties.find((county) => county.id == e.target.value));
-						}}
-					>
-						{counties?.map((county, idx) => {
-							return (
-								<option key={idx} value={county?.id}>
-									{county.name}
-								</option>
-							);
-						})}
-					</select>
-				</div>
-
-				<div className='col-span-2 p-5'>
-					<label className='block mb-1 text-sm font-semibold  text-gray-600'>
-						Constituency
-					</label>
-					<select
-						className='shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-						name='constituencies'
-						id='constituencies'
-						value={constituency?.id}
-						disabled={county?.id ? false : true}
-						onChange={(e) =>
-							setConstituency(
-								constituencies.find(
-									(constituency) => constituency.id == e.target.value
-								)
-							)
-						}
-					>
-						{constituencies?.map((constituency, idx) => {
-							return (
-								<option key={idx} value={constituency.id}>
-									{constituency.name}
-								</option>
-							);
-						})}
-					</select>
-				</div>
-
-				<div className='col-span-2 p-5'>
-					<label className='block mb-1 text-sm font-semibold  text-gray-600'>
-						Subcounty
-					</label>
-					<select
-						className='shadow-sm bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light'
-						name='subcounties'
-						id='subcounties'
-						value={subCounty?.id}
-						disabled={constituency?.id ? false : true}
-						onChange={(e) =>
-							setSubCounty(
-								subCounties.find((subCounty) => subCounty.id == e.target.value)
-							)
-						}
-					>
-						{subCounties?.map((subCounty, idx) => {
-							return (
-								<option key={idx} value={subCounty.id}>
-									{subCounty.name}
-								</option>
-							);
-						})}
-					</select>
-				</div>
+		<div className='my-4 w-full'>
+			<div className='grid grid-cols-1 md:grid-cols-2 gap-x-6'>
+				<InputElement
+					type='text'
+					label='Farm Name'
+					placeHolder='Farm Name'
+					required={true}
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+				/>
+				<InputElement
+					type='number'
+					label='Size'
+					placeHolder='Size in acres'
+					required={true}
+					value={size}
+					onChange={(e) => setSize(e.target.value)}
+				/>
 			</div>
-			<div className='text-right'>
+
+			<div className='flex flex-col md:flex-row justify-between'>
+				<Select
+					id='county'
+					name='county'
+					label='County'
+					placeHolder='-- Select County --'
+					value={county?.id}
+					onChange={(e) =>
+						setCounty(counties.find((c) => c.id == e.target.value))
+					}
+					options={counties}
+				/>
+				<Select
+					id='constituency'
+					name='constituency'
+					label='Constituency'
+					placeHolder='-- Select Constituency --'
+					value={constituency?.id}
+					onChange={(e) =>
+						setConstituency(constituencies.find((c) => c.id == e.target.value))
+					}
+					options={constituencies}
+				/>
+				<Select
+					id='sub-county'
+					name='sub-county'
+					label='Sub County'
+					placeHolder='-- Select Sub County --'
+					value={subCounty?.id}
+					onChange={(e) =>
+						setSubCounty(subCounties.find((c) => c.id == e.target.value))
+					}
+					options={subCounties}
+				/>
+			</div>
+			<div className='flex justify-between mt-5'>
 				<button
 					onClick={() => {
-						setIsLoading(true),
-							onSubmit({ name, size, county, constituency, subCounty });
+						onSubmit({ name, size, county, constituency, subCounty });
 					}}
-					className='bg-green-500 rounded-full text-white px-4 py-2 text-lg shadow-md first-letter:'
+					className='text-white rounded-md w-full bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-blue-800'
 				>
-					{' '}
-					<span className='flex gap-x-2'>
-						{' '}
-						{isLoading ? (
-							<ProgressSpinner
-								style={{ width: '20px', height: '30px' }}
-								strokeWidth='8'
-								fill='var(--surface-ground)'
-								animationDuration='.5s'
-								className='text-green-500'
-							/>
-						) : null}
-						<p className='flex items-center'>Submit</p>
-					</span>
+					Submit
 				</button>
 			</div>
-		</>
+		</div>
 	);
 }

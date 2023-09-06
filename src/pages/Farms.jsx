@@ -1,18 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FarmForm, Modal, Navbar, TableComponent } from '../components';
 import { createFarm, deleteFarm, getFarms, updateFarm } from '../api';
-import { useFarmContext } from '../hooks';
+import { toast } from 'react-toastify';
 
 export function Farms() {
 	const [farms, setFarms] = useState([]);
 	const [visible, setVisible] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
 	const [_farm, _setFarm] = useState();
-	const navigate = useNavigate();
-	const location = useLocation();
-	const { setFarm } = useFarmContext();
-	const [isLoading, setIsLoading] = useState(false);
 
 	const effectRun = useRef(false);
 	useEffect(() => {
@@ -42,6 +38,7 @@ export function Farms() {
 				subCounty: fm.subCounty.name,
 			};
 			setFarms((data) => [fm, ...data]);
+			toast.success('Farm created successfuly!');
 		} else {
 			fm = await updateFarm(_farm.id, data);
 			fm = {
@@ -54,6 +51,7 @@ export function Farms() {
 				const idx = data.findIndex((f) => f.id === fm.id);
 				return [...data.slice(0, idx), fm, ...data.slice(idx + 1, data.length)];
 			});
+			toast.success('Farm edited successfuly!');
 		}
 		setVisible(false);
 		_setFarm(null);
@@ -77,21 +75,17 @@ export function Farms() {
 				<Navbar />
 			</div>
 
-			<div className='flex justify-between w-full px-10 py-5'>
-				{location === '/farms' ? (
-					<div className='flex py-2  text-gray-800 text-3xl font-semibold'>
-						My Farms
-					</div>
-				) : (
-					<div className='flex py-2  text-gray-600 text-2xl '>My Farms</div>
-				)}
+			<div className='flex flex-col md:flex-row justify-between w-full px-10 py-5'>
+				<div className='flex py-2  text-gray-500 text-3xl font-semibold'>
+					My Farms
+				</div>
 
 				<button
-					className='flex px-4 py-1 items-center rounded-full text-white bg-green-500 shadow-lg'
+					className='flex px-4 py-1 items-center rounded-full text-white mt-4 md:mt-0 bg-green-400 hover:bg-green-500 shadow-lg'
 					onClick={() => setVisible(true)}
 				>
 					<i data-feather='plus' className=''></i>{' '}
-					<p className='pl-1 pr-2'> Add New Farm</p>
+					<p className='pl-1 pr-2'>New Farm</p>
 				</button>
 			</div>
 			<TableComponent

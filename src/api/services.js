@@ -14,7 +14,46 @@ import {
 	LOGOUT_ROUTE,
 	REFRESH_TOKEN_ROUTE,
 	REGISTER_ROUTE,
+	COUNTY_ROUTE,
+	CONSTITUENCY_ROUTE,
+	SUBCOUNTY_ROUTE,
 } from './routes';
+
+// COUNTIES
+
+export async function getCounties(options) {
+	try {
+		const res = await api.get(COUNTY_ROUTE, options);
+		return res?.data.content;
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+// CONSTITUENCIES
+
+export async function getConstituencies(options) {
+	try {
+		const res = await api.get(CONSTITUENCY_ROUTE, options);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+// SUBCOUNTIES
+
+export async function getSubCounties(options) {
+	try {
+		const res = await api.get(SUBCOUNTY_ROUTE, options);
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
 
 // AUTH
 

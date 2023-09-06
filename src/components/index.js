@@ -10,4 +10,5 @@ export * from './PersistSession';
 export * from './PersistFarm';
 export * from './Modal';
 export * from './TextArea';
+export * from './Select';
 export * from './forms';
