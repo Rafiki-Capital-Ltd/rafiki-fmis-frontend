@@ -1,3 +1,4 @@
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import { Routes, Route } from 'react-router-dom';
 import { Sidebar, PersistSession, Protected, PersistFarm } from './components';
@@ -19,6 +20,7 @@ import {
 	Expenses,
 	Logout,
 } from './pages';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 	return (
@@ -51,6 +53,7 @@ function App() {
 				<Route path='/logout' element={<Logout />} />
 				<Route path='*' element={<h1>404 NOT FOUND</h1>} />
 			</Routes>
+			<ToastContainer />
 		</>
 	);
 }
