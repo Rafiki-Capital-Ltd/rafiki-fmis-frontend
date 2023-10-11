@@ -1,7 +1,13 @@
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import { Routes, Route } from 'react-router-dom';
-import { Sidebar, PersistSession, Protected, PersistFarm } from './components';
+import {
+	Sidebar,
+	PersistSession,
+	Protected,
+	PersistFarm,
+	OnboardStrip,
+} from './components';
 import {
 	Animals,
 	Assets,
@@ -25,6 +31,7 @@ import { ToastContainer } from 'react-toastify';
 function App() {
 	return (
 		<>
+			<OnboardStrip />
 			<Routes>
 				<Route path='/register' element={<Register />} />
 				<Route path='/login' element={<Login />} />

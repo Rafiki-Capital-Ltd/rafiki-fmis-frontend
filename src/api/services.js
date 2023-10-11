@@ -1,5 +1,6 @@
 import { api } from './api';
 import {
+	USER_ROLES_COUNT_ROUTE,
 	FARMS_ROUTE,
 	FARM_ANIMALS_ROUTE,
 	FARM_ASSETS_ROUTE,
@@ -18,6 +19,16 @@ import {
 	CONSTITUENCY_ROUTE,
 	SUBCOUNTY_ROUTE,
 } from './routes';
+
+export async function getUserRolesCount(role) {
+	try {
+		const res = await api.get(USER_ROLES_COUNT_ROUTE, { params: { role } });
+		return res?.data;
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
 
 // COUNTIES
 

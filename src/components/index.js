@@ -12,3 +12,4 @@ export * from './Modal';
 export * from './TextArea';
 export * from './Select';
 export * from './forms';
+export * from './OnboardStrip';

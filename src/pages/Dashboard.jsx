@@ -1,22 +1,14 @@
 import React, { useRef } from 'react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaCashRegister, FaPlateWheat } from 'react-icons/fa6';
-import { GiTakeMyMoney, GiPayMoney, GiWheat, GiCash } from 'react-icons/gi';
-import { MdOutlineSell } from 'react-icons/md';
+import { FaPlateWheat } from 'react-icons/fa6';
+import { GiPayMoney, GiWheat, GiCash } from 'react-icons/gi';
 
 import { data } from '../data';
-import {
-	BarChart,
-	DashboardCard,
-	PieChart,
-	TableComponent,
-} from '../components';
+import { BarChart, DashboardCard, PieChart } from '../components';
 import { useApi, useFarmContext } from '../hooks';
 import {
 	FARM_ASSETS_COUNT_ROUTE,
 	FARM_CONSUMPTIONS_TOTAL_ROUTE,
-	FARM_CONTEXT_ROUTE,
 	FARM_PRODUCTIONS_TOTAL_ROUTE,
 	FARM_SALES_TOTAL_ROUTE,
 } from '../api';

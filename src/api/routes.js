@@ -10,6 +10,8 @@ export const REGISTER_ROUTE = '/auth/register';
 export const PROFILE_ROUTE = '/auth/profile';
 export const REFRESH_TOKEN_ROUTE = '/auth/refresh';
 
+export const USER_ROLES_COUNT_ROUTE = '/users/count';
+
 export const FARMS_ROUTE = '/farms';
 export const FARM_CONTEXT_ROUTE = FARMS_ROUTE + '/context';
 
